@@ -30,3 +30,11 @@
 *.exe
 *.out
 *.app
+
+# Files without extension
+*
+!/**/
+!*.*
+
+# MacOS custom files
+**/.DS_Store
