@@ -4,6 +4,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertNotNull;
 
+import org.apache.commons.lang3.tuple.Triple;
 import org.junit.Test;
 
 import io.github.marcelovca90.nn.data.DataSet;
@@ -24,11 +25,16 @@ public class PerceptronTest
 
         // when
         double[] weights = network.train(dataSet);
-        double accuracy = network.test(dataSet, weights);
+        Triple<Double, Long, Long> result = network.test(dataSet, weights);
+        double accuracy = result.getLeft();
+        long correct = result.getMiddle();
+        long total = result.getRight();
 
         // then
         assertNotNull(weights);
         assertEquals(1.0, accuracy, PRECISION);
+        assertEquals(4, correct);
+        assertEquals(4, total);
     }
 
     @Test
@@ -40,11 +46,16 @@ public class PerceptronTest
 
         // when
         double[] weights = network.train(dataSet);
-        double accuracy = network.test(dataSet, weights);
+        Triple<Double, Long, Long> result = network.test(dataSet, weights);
+        double accuracy = result.getLeft();
+        long correct = result.getMiddle();
+        long total = result.getRight();
 
         // then
         assertNotNull(weights);
-        assertEquals(1.0, accuracy, 1e-9);
+        assertEquals(1.0, accuracy, PRECISION);
+        assertEquals(4, correct);
+        assertEquals(4, total);
     }
 
     @Test
@@ -56,10 +67,15 @@ public class PerceptronTest
 
         // when
         double[] weights = network.train(dataSet);
-        double accuracy = network.test(dataSet, weights);
+        Triple<Double, Long, Long> result = network.test(dataSet, weights);
+        double accuracy = result.getLeft();
+        long correct = result.getMiddle();
+        long total = result.getRight();
 
         // then
         assertNotNull(weights);
-        assertNotEquals(1.0, accuracy, 1e-9);
+        assertNotEquals(1.0, accuracy, PRECISION);
+        assertNotEquals(4, correct);
+        assertEquals(4, total);
     }
 }

@@ -4,6 +4,8 @@ import java.util.Arrays;
 import java.util.concurrent.ThreadLocalRandom;
 import java.util.stream.DoubleStream;
 
+import org.apache.commons.lang3.tuple.Triple;
+
 import io.github.marcelovca90.nn.data.DataSet;
 import io.github.marcelovca90.nn.math.ActivationFunction;
 import io.github.marcelovca90.nn.math.AlgebraUtils;
@@ -56,11 +58,12 @@ public class Perceptron implements NeuralNetwork
     }
 
     @Override
-    public double test(DataSet dataSet, double[] weights)
+    public Triple<Double, Long, Long> test(DataSet dataSet, double[] weights)
     {
         x = dataSet.getSamples();
         d = dataSet.getLabels();
-        int correct = 0;
+        long correct = 0;
+        long total = dataSet.getNumberOfSamples();
         for (int i = 0; i < dataSet.getNumberOfSamples(); i++)
         {
             double v = AlgebraUtils.dotProduct(x[i], w);
@@ -68,9 +71,7 @@ public class Perceptron implements NeuralNetwork
             if (Double.compare(y, d[i]) == 0)
                 correct++;
         }
-        double accuracy = (double) correct / (double) dataSet.getNumberOfSamples();
-        System.out.printf("Accuracy: %.2f%% (%d/%d)\n", 100.0 * accuracy, correct, dataSet.getNumberOfSamples());
-        return accuracy;
+        double accuracy = (double) correct / (double) total;
+        return Triple.of(accuracy, correct, total);
     }
-
 }
