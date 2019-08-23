@@ -18,7 +18,7 @@ class Perceptron:
         w = np.random.rand(len(x[0]))
         epoch = 0
         error = True
-        while error:
+        while error and epoch < 10000:
             error = False
             for i in range(0, k):
                 v = np.dot(np.transpose(w), x[i])
