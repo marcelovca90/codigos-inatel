@@ -24,13 +24,13 @@ class Perceptron:
                 v = np.dot(np.transpose(w), x[i])
                 y = self.g(v)
                 if y != d[i]:
-                    w = np.add(w, np.multiply(x[i], self.n * (d[i] - y)))
+                    w = np.add(w, np.multiply(self.n * (d[i] - y), x[i]))
                     error = True
             epoch = epoch + 1
             print('Epoch: {}\tWeights: {}'.format(epoch, w))
         return w
 
-    def test(self, w, x):
+    def test(self, w, x, d):
         correct = 0
         total = len(x)
         for i in range(0, len(x)):
@@ -38,7 +38,7 @@ class Perceptron:
             y = self.g(v)
             if (y == d[i]):
                 correct = correct + 1
-        accuracy = 100.0 * float(correct) / float(len(x))
+        accuracy = 100.0 * float(correct) / float(total)
         return accuracy,correct,total;
 
 if  __name__ == '__main__':
@@ -54,5 +54,5 @@ if  __name__ == '__main__':
     w = nn.train(x, d)
 
     # test the neural network
-    accuracy,correct,total = nn.test(w, x)
+    accuracy,correct,total = nn.test(w, x, d)
     print('Accuracy: {:.2f}% ({}/{})'.format(accuracy, correct, total))
