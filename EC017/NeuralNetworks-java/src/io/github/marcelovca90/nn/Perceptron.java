@@ -69,9 +69,12 @@ public class Perceptron implements NeuralNetwork
             double v = AlgebraUtils.dotProduct(x[i], w);
             double y = g.compute(v);
             if (Double.compare(y, d[i]) == 0)
+            {
                 correct++;
+            }
         }
         double accuracy = (double) correct / (double) total;
+        System.out.printf("Accuracy: %.2f%% (%d/%d)\n", 100.0 * accuracy, correct, total);
         return Triple.of(accuracy, correct, total);
     }
 }
