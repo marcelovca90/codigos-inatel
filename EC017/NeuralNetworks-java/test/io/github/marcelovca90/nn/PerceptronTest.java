@@ -30,7 +30,7 @@ public class PerceptronTest
     }
 
     @Test
-    public void trainAndTest_withLogicGateOR_shouldConverge()
+    public void trainTestEvaluate_withLogicGateOR_shouldConverge()
     {
         // given
         DataSet dataSet = new LogicGateOR();
@@ -45,7 +45,7 @@ public class PerceptronTest
     }
 
     @Test
-    public void trainAndTest_withLogicGateXOR_shouldNotConverge()
+    public void trainTestEvaluate_withLogicGateXOR_shouldNotConverge()
     {
         // given
         DataSet dataSet = new LogicGateXOR();
