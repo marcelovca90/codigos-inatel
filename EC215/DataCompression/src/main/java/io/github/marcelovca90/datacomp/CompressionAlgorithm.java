@@ -1,10 +1,8 @@
 package io.github.marcelovca90.datacomp;
 
-import java.io.IOException;
-
 public interface CompressionAlgorithm
 {
-    public byte[] compress(byte[] data) throws IOException;
+    public String compress(String data);
 
-    public byte[] decompress(byte[] data) throws IOException;
+    public String decompress(String data);
 }

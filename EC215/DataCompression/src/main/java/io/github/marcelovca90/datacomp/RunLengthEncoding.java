@@ -1,72 +1,76 @@
 package io.github.marcelovca90.datacomp;
 
-import java.io.ByteArrayOutputStream;
-import java.io.IOException;
-import java.nio.ByteBuffer;
-
 public class RunLengthEncoding implements CompressionAlgorithm
 {
+    protected static final char SEPARATOR = '\0';
+
     @Override
-    public byte[] compress(byte[] data) throws IOException
+    public String compress(String data)
     {
-        if (data.length == 0)
+        if (data.isEmpty())
         {
             throw new IllegalArgumentException("There must be at least one byte of data.");
         }
 
-        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+        StringBuilder buffer = new StringBuilder();
         long currentAmount = 1L;
-        byte currentData = data[0];
+        char currentData = data.charAt(0);
 
-        for (int i = 1; i < data.length; i++)
+        for (int i = 1; i < data.length(); i++)
         {
-            // if the data repeats, increment the counter
-            if (data[i] == currentData)
+            if (data.charAt(i) == currentData)
             {
                 currentAmount++;
             }
-            // otherwise, write the data count (8 bytes) and the data itself
-            // to the output stream then resets the current data and counter
             else
             {
-                baos.write(ByteUtils.longToBytes(currentAmount));
-                baos.write(currentData);
+                buffer.append(currentAmount);
+                buffer.append(SEPARATOR);
+                buffer.append(currentData);
                 currentAmount = 1L;
-                currentData = data[i];
+                currentData = data.charAt(i);
             }
         }
-        // write the last data (and its count) to the output stream
-        baos.write(ByteUtils.longToBytes(currentAmount));
-        baos.write(currentData);
+        buffer.append(currentAmount);
+        buffer.append(SEPARATOR);
+        buffer.append(currentData);
 
-        return baos.toByteArray();
+        return buffer.toString();
     }
 
     @Override
-    public byte[] decompress(byte[] data) throws IOException
+    public String decompress(String data)
     {
-        if (data.length == 0)
+        if (data.isEmpty())
         {
             throw new IllegalArgumentException("There must be at least one byte of data.");
         }
 
-        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+        StringBuilder amountBuffer = new StringBuilder();
+        StringBuilder outputBuffer = new StringBuilder();
 
-        for (int i = 0; i < data.length;)
+        int pos = 0;
+        while (pos < data.length())
         {
-            // reads the current count (8 bytes)
-            ByteBuffer buffer = ByteBuffer.allocate(Long.BYTES);
-            for (int j = 0; j < Long.BYTES; i++, j++)
-                buffer.put(data[i]);
-            // parses the current count
-            long currentAmount = ByteUtils.bytesToLong(buffer.array());
-            // retrieves the current data
-            byte currentData = data[i++];
-            // writes the current data to output stream
-            for (int j = 0; j < currentAmount; j++)
-                baos.write(currentData);
+            long currentAmount = 1L;
+            char currentData = data.charAt(pos);
+            if (currentData != SEPARATOR)
+            {
+                amountBuffer.append(currentData);
+            }
+            else
+            {
+                currentAmount = Long.valueOf(amountBuffer.toString());
+                currentData = data.charAt(++pos);
+                for (int i = 0; i < currentAmount; i++)
+                {
+                    outputBuffer.append(currentData);
+                }
+                amountBuffer = new StringBuilder();
+            }
+            pos++;
         }
 
-        return baos.toByteArray();
+        return outputBuffer.toString();
     }
 }
