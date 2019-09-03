@@ -20,18 +20,22 @@ public class RunLengthEncoding implements CompressionAlgorithm
 
         for (int i = 1; i < data.length; i++)
         {
+            // if the data repeats, increment the counter
             if (data[i] == currentData)
             {
                 currentAmount++;
             }
+            // otherwise, write the data count (8 bytes) and the data itself
+            // to the output stream then resets the current data and counter
             else
             {
                 baos.write(ByteUtils.longToBytes(currentAmount));
                 baos.write(currentData);
+                currentAmount = 1L;
                 currentData = data[i];
-                currentAmount = 1;
             }
         }
+        // write the last data (and its count) to the output stream
         baos.write(ByteUtils.longToBytes(currentAmount));
         baos.write(currentData);
 
