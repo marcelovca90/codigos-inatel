@@ -1,41 +1,68 @@
 package io.github.marcelovca90.datacomp;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+import java.nio.ByteBuffer;
 
 public class RunLengthEncoding implements CompressionAlgorithm
 {
     @Override
-    public Byte[] compress(Byte[] data)
+    public byte[] compress(byte[] data) throws IOException
     {
         if (data.length == 0)
-            throw new IllegalArgumentException("There must be at least one byte of data");
+        {
+            throw new IllegalArgumentException("There must be at least one byte of data.");
+        }
 
-        List<Byte> buffer = new ArrayList<>();
-        byte current = data[0];
-        int count = 1;
+        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+        long currentAmount = 1L;
+        byte currentData = data[0];
 
         for (int i = 1; i < data.length; i++)
         {
-            if (data[i] == current)
-                count++;
+            if (data[i] == currentData)
+            {
+                currentAmount++;
+            }
             else
             {
-                buffer.add((byte) count);
-                buffer.add(current);
-                current = data[i];
-                count = 1;
+                baos.write(ByteUtils.longToBytes(currentAmount));
+                baos.write(currentData);
+                currentData = data[i];
+                currentAmount = 1;
             }
         }
-        buffer.add((byte) count);
-        buffer.add(current);
+        baos.write(ByteUtils.longToBytes(currentAmount));
+        baos.write(currentData);
 
-        return buffer.toArray(new Byte[buffer.size()]);
+        return baos.toByteArray();
     }
 
     @Override
-    public Byte[] decompress(Byte[] data)
+    public byte[] decompress(byte[] data) throws IOException
     {
-        return null;
+        if (data.length == 0)
+        {
+            throw new IllegalArgumentException("There must be at least one byte of data.");
+        }
+
+        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+
+        for (int i = 0; i < data.length;)
+        {
+            // reads the current count (8 bytes)
+            ByteBuffer buffer = ByteBuffer.allocate(Long.BYTES);
+            for (int j = 0; j < Long.BYTES; i++, j++)
+                buffer.put(data[i]);
+            // parses the current count
+            long currentAmount = ByteUtils.bytesToLong(buffer.array());
+            // retrieves the current data
+            byte currentData = data[i++];
+            // writes the current data to output stream
+            for (int j = 0; j < currentAmount; j++)
+                baos.write(currentData);
+        }
+
+        return baos.toByteArray();
     }
 }

@@ -1,56 +1,82 @@
 package io.github.marcelovca90.datacomp;
 
+import static io.github.marcelovca90.datacomp.ByteUtils.longToBytes;
 import static org.junit.Assert.assertArrayEquals;
-import static org.mockito.Mockito.when;
 
-import org.apache.commons.lang3.ArrayUtils;
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+
 import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.mockito.Spy;
-import org.mockito.junit.MockitoJUnitRunner;
 
-@RunWith(MockitoJUnitRunner.class)
 public class RunLengthEncodingTest
 {
-    @Spy
-    private RunLengthEncoding RLE;
+    private RunLengthEncoding runLengthEncoding;
 
     @Test(expected = IllegalArgumentException.class)
-    public void compress_withInvalidData_shouldThrowException()
+    public void compress_withInvalidData_shouldThrowException() throws IOException
     {
         // given
-        Byte[] input = new Byte[0];
+        byte[] input = new byte[0];
 
         // when
-        RLE.compress(input);
+        runLengthEncoding.compress(input);
     }
 
     @Test
-    public void compress_withValidData_shouldCompress()
+    public void compress_withValidData_shouldCompress() throws IOException
     {
         // given
-        Byte[] input = ArrayUtils.toObject("Maaaaarrrceelooo".getBytes());
+        byte[] input = "Maaaaarrrceelooo".getBytes();
+        byte[] expecteds = buildCompressedByteArray();
 
         // when
-        Byte[] output = RLE.compress(input);
+        byte[] output = runLengthEncoding.compress(input);
 
         // then
-        Byte[] expecteds = new Byte[] { 1, 77, 5, 97, 3, 114, 1, 99, 2, 101, 1, 108, 3, 111 };
         assertArrayEquals(expecteds, output);
     }
 
-    @Test
-    public void decompress_withMockedData_shouldPass()
+    @Test(expected = IllegalArgumentException.class)
+    public void decompress_withInvalidData_shouldThrowException() throws IOException
     {
         // given
-        Byte[] input = new Byte[] { 1, 77, 5, 97, 3, 114, 1, 99, 2, 101, 1, 108, 3, 111 };
-        Byte[] expecteds = ArrayUtils.toObject("Maaaaarrrceelooo".getBytes());
-        when(RLE.decompress(input)).thenReturn(expecteds);
+        byte[] input = new byte[0];
 
         // when
-        Byte[] output = RLE.decompress(input);
+        runLengthEncoding.decompress(input);
+    }
+
+    @Test
+    public void decompress_withValidData_shouldDecompress() throws IOException
+    {
+        // given
+        byte[] input = buildCompressedByteArray();
+        byte[] expecteds = "Maaaaarrrceelooo".getBytes();
+
+        // when
+        byte[] output = runLengthEncoding.decompress(input);
 
         // then
         assertArrayEquals(expecteds, output);
+    }
+
+    private byte[] buildCompressedByteArray() throws IOException
+    {
+        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+        baos.write(longToBytes(1L));
+        baos.write('M');
+        baos.write(longToBytes(5L));
+        baos.write('a');
+        baos.write(longToBytes(3L));
+        baos.write('r');
+        baos.write(longToBytes(1L));
+        baos.write('c');
+        baos.write(longToBytes(2L));
+        baos.write('e');
+        baos.write(longToBytes(1L));
+        baos.write('l');
+        baos.write(longToBytes(3L));
+        baos.write('o');
+        return baos.toByteArray();
     }
 }
