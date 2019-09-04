@@ -1,6 +1,6 @@
 package io.github.marcelovca90.datacomp;
 
-public class RunLengthEncoding implements CompressionAlgorithm
+public class RunLengthEncoding extends CompressionAlgorithm
 {
     protected static final char SEPARATOR = '\0';
 
