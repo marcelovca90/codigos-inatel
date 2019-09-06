@@ -1,13 +1,12 @@
-package io.github.marcelovca90.nn;
+package io.github.marcelovca90.nn.model;
 
 import java.util.Arrays;
-import java.util.concurrent.ThreadLocalRandom;
-import java.util.stream.DoubleStream;
+import java.util.Random;
 
 import io.github.marcelovca90.nn.data.DataSet;
 import io.github.marcelovca90.nn.math.ActivationFunction;
-import io.github.marcelovca90.nn.math.AlgebraUtils;
 import io.github.marcelovca90.nn.math.Heaviside;
+import io.github.marcelovca90.nn.math.MathUtils;
 
 public class Perceptron implements NeuralNetwork
 {
@@ -23,10 +22,7 @@ public class Perceptron implements NeuralNetwork
         x = dataSet.getSamples();
         d = dataSet.getLabels();
         n = 0.1;
-        w = DoubleStream
-            .generate(ThreadLocalRandom.current()::nextDouble)
-            .limit(dataSet.getNumberOfFeatures())
-            .toArray();
+        w = new Random(42L).doubles(dataSet.getNumberOfFeatures()).toArray();
         g = new Heaviside();
 
         int epoch = 0;
@@ -37,7 +33,7 @@ public class Perceptron implements NeuralNetwork
             error = false;
             for (int i = 0; i < dataSet.getNumberOfSamples(); i++)
             {
-                double v = AlgebraUtils.dotProduct(x[i], w);
+                double v = MathUtils.dotProduct(x[i], w);
                 double y = g.compute(v);
                 if (Double.compare(y, d[i]) != 0)
                 {
@@ -50,6 +46,7 @@ public class Perceptron implements NeuralNetwork
             }
             epoch++;
             System.out.printf("Epoch: %d\tWeights: %s\n", epoch, Arrays.toString(w));
+
         } while (error && epoch < 10000);
 
         return Arrays.copyOf(w, w.length);
@@ -58,7 +55,7 @@ public class Perceptron implements NeuralNetwork
     @Override
     public double test(double[] weights, double[] sample)
     {
-        double v = AlgebraUtils.dotProduct(w, sample);
+        double v = MathUtils.dotProduct(w, sample);
         double y = g.compute(v);
         return y;
     }

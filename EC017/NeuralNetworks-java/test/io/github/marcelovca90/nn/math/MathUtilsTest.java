@@ -5,13 +5,15 @@ import static org.junit.Assert.assertNotNull;
 
 import org.junit.Test;
 
-public class AlgebraUtilsTest
+import io.github.marcelovca90.nn.math.MathUtils;
+
+public class MathUtilsTest
 {
     @Test
     public void constructor_shouldReturnNonNullObject()
     {
         // when
-        AlgebraUtils utils = new AlgebraUtils();
+        MathUtils utils = new MathUtils();
 
         // then
         assertNotNull(utils);
@@ -25,7 +27,7 @@ public class AlgebraUtilsTest
         double[] d2 = { 4.0, 5.0, 6.0 };
 
         // when
-        double ans = AlgebraUtils.dotProduct(d1, d2);
+        double ans = MathUtils.dotProduct(d1, d2);
 
         // then
         assertEquals(32.0, ans, 1e-9);

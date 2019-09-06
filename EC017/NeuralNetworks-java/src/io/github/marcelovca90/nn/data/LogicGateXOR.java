@@ -1,8 +1,6 @@
-package io.github.marcelovca90.nn.data.example;
+package io.github.marcelovca90.nn.data;
 
-import io.github.marcelovca90.nn.data.DataSet;
-
-public class LogicGateOR extends DataSet
+public class LogicGateXOR extends DataSet
 {
     private static final double[][] _SAMPLES = new double[][] {
             { -1.0, 0.0, 0.0 },
@@ -13,12 +11,12 @@ public class LogicGateOR extends DataSet
 
     private static final double[] _LABELS = new double[] {
             0.0,
-            0.0,
             1.0,
-            1.0
+            1.0,
+            0.0
     };
 
-    public LogicGateOR()
+    public LogicGateXOR()
     {
         super(_SAMPLES, _LABELS);
     }

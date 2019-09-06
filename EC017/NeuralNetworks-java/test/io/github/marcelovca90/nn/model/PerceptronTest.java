@@ -1,4 +1,4 @@
-package io.github.marcelovca90.nn;
+package io.github.marcelovca90.nn.model;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotEquals;
@@ -6,9 +6,11 @@ import static org.junit.Assert.assertNotEquals;
 import org.junit.Test;
 
 import io.github.marcelovca90.nn.data.DataSet;
-import io.github.marcelovca90.nn.data.example.LogicGateAND;
-import io.github.marcelovca90.nn.data.example.LogicGateOR;
-import io.github.marcelovca90.nn.data.example.LogicGateXOR;
+import io.github.marcelovca90.nn.data.LogicGateAND;
+import io.github.marcelovca90.nn.data.LogicGateOR;
+import io.github.marcelovca90.nn.data.LogicGateXOR;
+import io.github.marcelovca90.nn.model.NeuralNetwork;
+import io.github.marcelovca90.nn.model.Perceptron;
 
 public class PerceptronTest
 {

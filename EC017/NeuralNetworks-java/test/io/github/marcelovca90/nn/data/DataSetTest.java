@@ -6,6 +6,8 @@ import static org.junit.Assert.assertNotNull;
 
 import org.junit.Test;
 
+import io.github.marcelovca90.nn.data.DataSet;
+
 public class DataSetTest
 {
     private static final double PRECISION = 1e-9;

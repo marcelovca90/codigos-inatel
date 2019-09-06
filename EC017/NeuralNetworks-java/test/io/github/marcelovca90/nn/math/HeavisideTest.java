@@ -4,6 +4,8 @@ import static org.junit.Assert.assertEquals;
 
 import org.junit.Test;
 
+import io.github.marcelovca90.nn.math.Heaviside;
+
 public class HeavisideTest
 {
     private static final double PRECISION = 1e-9;

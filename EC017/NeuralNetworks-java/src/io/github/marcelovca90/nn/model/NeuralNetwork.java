@@ -1,4 +1,4 @@
-package io.github.marcelovca90.nn;
+package io.github.marcelovca90.nn.model;
 
 import io.github.marcelovca90.nn.data.DataSet;
 
