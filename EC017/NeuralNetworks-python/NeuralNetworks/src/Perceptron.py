@@ -14,7 +14,7 @@ class Perceptron:
         self.n = 0.1 # learning rate
         self.g = ActivationFunctions.heaviside # activation function
         self.plot_data_x = [] # epochs for plotting
-        self.plot_data_y = [] # eqms for plotting
+        self.plot_data_y = [] # error for plotting
 
     def train(self, x, d):
         k = len(x)

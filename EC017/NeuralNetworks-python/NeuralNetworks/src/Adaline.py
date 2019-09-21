@@ -11,7 +11,7 @@ from _plot import PlotUtils
 class Adaline:
 
     def __init__(self):
-        self.n = 1e-6 # learning rate
+        self.n = 0.1 # learning rate
         self.g = ActivationFunctions.heaviside_symmetric # activation function
         self.e = 1e-3 # error variation tolerance
         self.plot_data_x = [] # epochs for plotting
@@ -53,9 +53,15 @@ class Adaline:
 
 if  __name__ == '__main__':
 
+    # set random number generator seed
+    np.random.seed(42L)
+
+    # set floating point formatting when printing
+    np.set_printoptions(formatter={'float': '{: 0.6f}'.format})
+
     # load data
-    x = DataSets.TIC_TAC_TOE_ENDGAME.input
-    d = DataSets.TIC_TAC_TOE_ENDGAME.output
+    x = DataSets.LOGIC_GATE_XOR.input
+    d = DataSets.LOGIC_GATE_XOR.output
 
     # create the neural network
     nn = Adaline()
