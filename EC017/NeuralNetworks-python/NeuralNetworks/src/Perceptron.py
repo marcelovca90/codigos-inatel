@@ -6,12 +6,15 @@ Created on 23 de ago de 2019
 import numpy as np
 from _data import DataSets
 from _math import ActivationFunctions
+from _plot import PlotUtils
 
 class Perceptron:
 
     def __init__(self):
         self.n = 0.1 # learning rate
         self.g = ActivationFunctions.heaviside # activation function
+        self.plot_data_x = [] # epochs for plotting
+        self.plot_data_y = [] # eqms for plotting
 
     def train(self, x, d):
         k = len(x)
@@ -28,6 +31,8 @@ class Perceptron:
                     error = True
             epoch = epoch + 1
             print('Epoch: {}\tWeights: {}'.format(epoch, w))
+            self.plot_data_x.append(epoch)
+            self.plot_data_y.append(1 if error else 0)
         return w
 
     def test(self, w, x):
@@ -60,3 +65,6 @@ if  __name__ == '__main__':
 
     # evaluate the neural network
     acc = nn.evaluate(w, x, d)
+    
+    # plot epoch versus error data
+    PlotUtils.plot(nn.plot_data_x, 'epoch', nn.plot_data_y, 'error')

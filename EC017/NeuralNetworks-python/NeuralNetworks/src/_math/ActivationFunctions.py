@@ -10,6 +10,9 @@ class ActivationFunctions:
     
     def __init__(self):
         pass
-    
+
 def heaviside(v):
     return 1 if v >= 0 else 0
+
+def heaviside_symmetric(u):
+    return np.sign(u)
