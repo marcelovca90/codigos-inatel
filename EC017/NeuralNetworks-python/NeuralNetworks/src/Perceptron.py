@@ -73,4 +73,4 @@ if  __name__ == '__main__':
     acc = nn.evaluate(w, x, d)
     
     # plot epoch versus error data
-    PlotUtils.plot(nn.plot_data_x, 'epoch', nn.plot_data_y, 'error', 'bar')
+    PlotUtils.plot(nn.plot_data_x, 'epoch', nn.plot_data_y, 'error')

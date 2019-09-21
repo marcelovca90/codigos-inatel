@@ -14,7 +14,7 @@ class PlotUtils:
         pass
     
 # https://matplotlib.org/api/axes_api.html#matplotlib.axes.Axes
-def plot(x, _xlabel, y, _ylabel, plot_type):
+def plot(x, _xlabel, y, _ylabel):
     
     # handle convergence in first training epoch
     if len(x) == 1 and len(y) == 1:
@@ -22,12 +22,7 @@ def plot(x, _xlabel, y, _ylabel, plot_type):
     else:
         # data
         ax = plt.gca()
-        if plot_type == "bar":
-            ax.bar(x, y, color='blue', align='center')
-        elif plot_type == "line":
-            ax.plot(x, y, color='blue', linewidth=1.5)
-        else:
-            print('Unsupported plot type.')
+        ax.plot(x, y, color='blue', linewidth=1.5)
         ax.xaxis.set_major_locator(MaxNLocator(integer=True))
         
         # limits
