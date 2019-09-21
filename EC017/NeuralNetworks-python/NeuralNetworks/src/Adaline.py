@@ -54,7 +54,7 @@ class Adaline:
 if  __name__ == '__main__':
 
     # set random number generator seed
-    np.random.seed(42L)
+    np.random.seed(42)
 
     # set floating point formatting when printing
     np.set_printoptions(formatter={'float': '{: 0.6f}'.format})
@@ -73,4 +73,4 @@ if  __name__ == '__main__':
     acc = nn.evaluate(w, x, d)
     
     # plot epoch versus error data
-    PlotUtils.plot(nn.plot_data_x, 'epoch', nn.plot_data_y, 'mse')
+    PlotUtils.plot(nn.plot_data_x, 'epoch', nn.plot_data_y, 'mse', 'line')

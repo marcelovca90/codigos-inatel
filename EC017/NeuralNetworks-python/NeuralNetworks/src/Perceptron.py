@@ -11,7 +11,7 @@ from _plot import PlotUtils
 class Perceptron:
 
     def __init__(self):
-        self.n = 0.1 # learning rate
+        self.n = 1e-2 # learning rate
         self.g = ActivationFunctions.heaviside # activation function
         self.plot_data_x = [] # epochs for plotting
         self.plot_data_y = [] # error for plotting
@@ -53,6 +53,12 @@ class Perceptron:
 
 if  __name__ == '__main__':
 
+    # set random number generator seed
+    np.random.seed(42)
+
+    # set floating point formatting when printing
+    np.set_printoptions(formatter={'float': '{: 0.6f}'.format})
+
     # load data
     x = DataSets.LOGIC_GATE_AND.input
     d = DataSets.LOGIC_GATE_AND.output
@@ -67,4 +73,4 @@ if  __name__ == '__main__':
     acc = nn.evaluate(w, x, d)
     
     # plot epoch versus error data
-    PlotUtils.plot(nn.plot_data_x, 'epoch', nn.plot_data_y, 'error')
+    PlotUtils.plot(nn.plot_data_x, 'epoch', nn.plot_data_y, 'error', 'bar')

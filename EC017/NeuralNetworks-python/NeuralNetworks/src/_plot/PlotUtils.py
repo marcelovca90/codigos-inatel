@@ -14,15 +14,20 @@ class PlotUtils:
         pass
     
 # https://matplotlib.org/api/axes_api.html#matplotlib.axes.Axes
-def plot(x, _xlabel, y, _ylabel):
+def plot(x, _xlabel, y, _ylabel, plot_type):
     
     # handle convergence in first training epoch
     if len(x) == 1 and len(y) == 1:
-        print('Network converged in one training epoch; no plot to show.')
+        print('Only one training epoch was performed; no plot to show.')
     else:
         # data
         ax = plt.gca()
-        ax.plot(x, y, color='blue', linewidth=1.5)
+        if plot_type == "bar":
+            ax.bar(x, y, color='blue', align='center')
+        elif plot_type == "line":
+            ax.plot(x, y, color='blue', linewidth=1.5)
+        else:
+            print('Unsupported plot type.')
         ax.xaxis.set_major_locator(MaxNLocator(integer=True))
         
         # limits
