@@ -11,9 +11,9 @@ from _plot import PlotUtils
 class Adaline:
 
     def __init__(self):
-        self.n = 0.1 # learning rate
+        self.n = 1e-6 # learning rate
         self.g = ActivationFunctions.heaviside_symmetric # activation function
-        self.e = 1e-3 # error variation tolerance
+        self.e = 1e-5 # error variation tolerance
         self.plot_data_x = [] # epochs for plotting
         self.plot_data_y = [] # eqms for plotting
 
@@ -60,8 +60,8 @@ if  __name__ == '__main__':
     np.set_printoptions(formatter={'float': '{: 0.6f}'.format})
 
     # load data
-    x = DataSets.LOGIC_GATE_XOR.input
-    d = DataSets.LOGIC_GATE_XOR.output
+    x = DataSets.BLOOD_TRANSFUSION.input
+    d = DataSets.BLOOD_TRANSFUSION.output
 
     # create the neural network
     nn = Adaline()
