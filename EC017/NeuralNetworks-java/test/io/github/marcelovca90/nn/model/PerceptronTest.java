@@ -14,7 +14,7 @@ import io.github.marcelovca90.nn.math.Heaviside;
 
 public class PerceptronTest
 {
-    private static final double LEARNING_RATE = 0.1;
+    private static final double LEARNING_RATE = 1e-2;
     private static final ActivationFunction ACTIVATION_FUNCTION = new Heaviside();
     private static final double DELTA = 1e-9;
 
