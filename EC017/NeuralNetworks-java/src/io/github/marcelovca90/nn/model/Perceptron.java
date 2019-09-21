@@ -5,7 +5,6 @@ import java.util.Random;
 
 import io.github.marcelovca90.nn.data.DataSet;
 import io.github.marcelovca90.nn.math.ActivationFunction;
-import io.github.marcelovca90.nn.math.Heaviside;
 import io.github.marcelovca90.nn.math.MathUtils;
 
 public class Perceptron implements NeuralNetwork
@@ -16,14 +15,18 @@ public class Perceptron implements NeuralNetwork
     private double[] w;
     private ActivationFunction g;
 
+    public Perceptron(double n, ActivationFunction g)
+    {
+        this.n = n;
+        this.g = g;
+    }
+
     @Override
     public double[] train(DataSet dataSet)
     {
         x = dataSet.getSamples();
         d = dataSet.getLabels();
-        n = 0.1;
         w = new Random(42L).doubles(dataSet.getNumberOfFeatures()).toArray();
-        g = new Heaviside();
 
         int epoch = 0;
         boolean error;

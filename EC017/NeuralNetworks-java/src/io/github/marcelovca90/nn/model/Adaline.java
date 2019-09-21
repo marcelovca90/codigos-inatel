@@ -5,7 +5,6 @@ import java.util.Random;
 
 import io.github.marcelovca90.nn.data.DataSet;
 import io.github.marcelovca90.nn.math.ActivationFunction;
-import io.github.marcelovca90.nn.math.Heaviside;
 import io.github.marcelovca90.nn.math.MathUtils;
 
 public class Adaline implements NeuralNetwork
@@ -17,15 +16,19 @@ public class Adaline implements NeuralNetwork
     private ActivationFunction g;
     private double e;
 
+    public Adaline(double n, ActivationFunction g, double e)
+    {
+        this.n = n;
+        this.g = g;
+        this.e = e;
+    }
+
     @Override
     public double[] train(DataSet dataSet)
     {
         x = dataSet.getSamples();
         d = dataSet.getLabels();
-        n = 0.1;
         w = new Random(42L).doubles(dataSet.getNumberOfFeatures()).toArray();
-        g = new Heaviside();
-        e = 0.001;
 
         int epoch = 0;
         double mseBefore, mseAfter;
@@ -52,7 +55,7 @@ public class Adaline implements NeuralNetwork
             epoch++;
             System.out.printf("Epoch: %d\tWeights: %s\tError: %s\n", epoch, Arrays.toString(w), mseAfter);
 
-        } while (Double.compare(Math.abs(mseAfter - mseBefore), e) > 0);
+        } while (Double.compare(Math.abs(mseAfter - mseBefore), e) >= 0);
 
         return Arrays.copyOf(w, w.length);
     }

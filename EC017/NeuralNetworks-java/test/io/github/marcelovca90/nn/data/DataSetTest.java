@@ -6,11 +6,9 @@ import static org.junit.Assert.assertNotNull;
 
 import org.junit.Test;
 
-import io.github.marcelovca90.nn.data.DataSet;
-
 public class DataSetTest
 {
-    private static final double PRECISION = 1e-9;
+    private static final double DELTA = 1e-9;
 
     double[][] samples = new double[][] {
             { 1.0, 2.0, 3.0, 4.0 },
@@ -29,8 +27,8 @@ public class DataSetTest
     {
         assertNotNull(dataSet.getSamples());
         assertEquals(dataSet.getSamples().length, 2);
-        assertArrayEquals(samples[0], dataSet.getSamples()[0], PRECISION);
-        assertArrayEquals(samples[1], dataSet.getSamples()[1], PRECISION);
+        assertArrayEquals(samples[0], dataSet.getSamples()[0], DELTA);
+        assertArrayEquals(samples[1], dataSet.getSamples()[1], DELTA);
     }
 
     @Test
@@ -38,8 +36,8 @@ public class DataSetTest
     {
         assertNotNull(dataSet.getLabels());
         assertEquals(dataSet.getLabels().length, 2);
-        assertEquals(labels[0], dataSet.getLabels()[0], PRECISION);
-        assertEquals(labels[1], dataSet.getLabels()[1], PRECISION);
+        assertEquals(labels[0], dataSet.getLabels()[0], DELTA);
+        assertEquals(labels[1], dataSet.getLabels()[1], DELTA);
     }
 
     @Test
