@@ -31,15 +31,17 @@ public class Adaline implements NeuralNetwork
         w = new Random(42L).doubles(dataSet.getNumberOfFeatures()).toArray();
 
         int epoch = 0;
+        double[] vArray = new double[(int) dataSet.getNumberOfSamples()];
         double mseBefore, mseAfter;
 
         do
         {
-            double[] y = new double[(int) dataSet.getNumberOfSamples()];
+            // calculate mse after before weights adjustments
             for (int i = 0; i < dataSet.getNumberOfSamples(); i++)
-                y[i] = g.compute(MathUtils.dotProduct(x[i], w));
-            mseBefore = MathUtils.meanSquaredError(y, d);
+                vArray[i] = MathUtils.dotProduct(x[i], w);
+            mseBefore = MathUtils.meanSquaredError(vArray, d);
 
+            // adjust synaptic weights
             for (int i = 0; i < dataSet.getNumberOfSamples(); i++)
             {
                 double v = MathUtils.dotProduct(x[i], w);
@@ -47,10 +49,10 @@ public class Adaline implements NeuralNetwork
                     w[j] += (n * (d[i] - v) * x[i][j]);
             }
 
-            y = new double[(int) dataSet.getNumberOfSamples()];
+            // calculate mse after after weights adjustments
             for (int i = 0; i < dataSet.getNumberOfSamples(); i++)
-                y[i] = g.compute(MathUtils.dotProduct(x[i], w));
-            mseAfter = MathUtils.meanSquaredError(y, d);
+                vArray[i] = MathUtils.dotProduct(x[i], w);
+            mseAfter = MathUtils.meanSquaredError(vArray, d);
 
             epoch++;
             System.out.printf("Epoch: %d\tWeights: %s\tError: %s\n", epoch, Arrays.toString(w), mseAfter);
