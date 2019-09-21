@@ -1,11 +1,14 @@
 package io.github.marcelovca90.nn.model;
 
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 import java.util.Random;
 
 import io.github.marcelovca90.nn.data.DataSet;
 import io.github.marcelovca90.nn.math.ActivationFunction;
 import io.github.marcelovca90.nn.math.MathUtils;
+import io.github.marcelovca90.nn.plot.PlotUtils;
 
 public class Adaline implements NeuralNetwork
 {
@@ -15,6 +18,8 @@ public class Adaline implements NeuralNetwork
     private double[] w;
     private ActivationFunction g;
     private double e;
+    private List<Double> plotDataX;
+    private List<Double> plotDataY;
 
     public Adaline(double n, ActivationFunction g, double e)
     {
@@ -29,6 +34,8 @@ public class Adaline implements NeuralNetwork
         x = dataSet.getSamples();
         d = dataSet.getLabels();
         w = new Random(42L).doubles(dataSet.getNumberOfFeatures()).toArray();
+        this.plotDataX = new ArrayList<>();
+        this.plotDataY = new ArrayList<>();
 
         int epoch = 0;
         double[] vArray = new double[(int) dataSet.getNumberOfSamples()];
@@ -56,6 +63,8 @@ public class Adaline implements NeuralNetwork
 
             epoch++;
             System.out.printf("Epoch: %d\tWeights: %s\tError: %s\n", epoch, Arrays.toString(w), mseAfter);
+            plotDataX.add((double) epoch);
+            plotDataY.add(mseAfter);
 
         } while (Double.compare(Math.abs(mseAfter - mseBefore), e) >= 0);
 
@@ -88,5 +97,14 @@ public class Adaline implements NeuralNetwork
         double accuracy = (double) correct / (double) total;
         System.out.printf("Accuracy: %.2f%% (%d/%d)\n", 100.0 * accuracy, correct, total);
         return accuracy;
+    }
+
+    public void plotMeanSquaredErrorPerEpoch()
+    {
+        PlotUtils.plot(
+            plotDataX.stream().mapToDouble(Double::doubleValue).toArray(),
+            "epoch",
+            plotDataY.stream().mapToDouble(Double::doubleValue).toArray(),
+            "mse");
     }
 }

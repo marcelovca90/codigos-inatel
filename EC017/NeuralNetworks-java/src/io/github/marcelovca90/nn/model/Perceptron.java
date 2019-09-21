@@ -1,11 +1,14 @@
 package io.github.marcelovca90.nn.model;
 
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 import java.util.Random;
 
 import io.github.marcelovca90.nn.data.DataSet;
 import io.github.marcelovca90.nn.math.ActivationFunction;
 import io.github.marcelovca90.nn.math.MathUtils;
+import io.github.marcelovca90.nn.plot.PlotUtils;
 
 public class Perceptron implements NeuralNetwork
 {
@@ -14,11 +17,15 @@ public class Perceptron implements NeuralNetwork
     private double n;
     private double[] w;
     private ActivationFunction g;
+    private List<Double> plotDataX;
+    private List<Double> plotDataY;
 
     public Perceptron(double n, ActivationFunction g)
     {
         this.n = n;
         this.g = g;
+        this.plotDataX = new ArrayList<>();
+        this.plotDataY = new ArrayList<>();
     }
 
     @Override
@@ -49,6 +56,8 @@ public class Perceptron implements NeuralNetwork
             }
             epoch++;
             System.out.printf("Epoch: %d\tWeights: %s\n", epoch, Arrays.toString(w));
+            plotDataX.add((double) epoch);
+            plotDataY.add(error ? 1.0 : 0.0);
 
         } while (error && epoch < 10000);
 
@@ -81,5 +90,14 @@ public class Perceptron implements NeuralNetwork
         double accuracy = (double) correct / (double) total;
         System.out.printf("Accuracy: %.2f%% (%d/%d)\n", 100.0 * accuracy, correct, total);
         return accuracy;
+    }
+
+    public void plotErrorPerEpoch()
+    {
+        PlotUtils.plot(
+            plotDataX.stream().mapToDouble(Double::doubleValue).toArray(),
+            "epoch",
+            plotDataY.stream().mapToDouble(Double::doubleValue).toArray(),
+            "error");
     }
 }

@@ -19,7 +19,7 @@ public class PerceptronTest
     private static final double DELTA = 1e-9;
 
     @Test
-    public void trainTestEvaluate_withLogicGateAND_shouldConverge()
+    public void trainTestEvaluatePlot_withLogicGateAND_shouldConverge()
     {
         // given
         DataSet dataSet = new LogicGateAND();
@@ -28,13 +28,14 @@ public class PerceptronTest
         // when
         double[] weights = network.train(dataSet);
         double accuracy = network.evaluate(weights, dataSet);
+        ((Perceptron) network).plotErrorPerEpoch();
 
         // then
         assertEquals(1.0, accuracy, DELTA);
     }
 
     @Test
-    public void trainTestEvaluate_withLogicGateOR_shouldConverge()
+    public void trainTestEvaluatePlot_withLogicGateOR_shouldConverge()
     {
         // given
         DataSet dataSet = new LogicGateOR();
@@ -43,13 +44,14 @@ public class PerceptronTest
         // when
         double[] weights = network.train(dataSet);
         double accuracy = network.evaluate(weights, dataSet);
+        ((Perceptron) network).plotErrorPerEpoch();
 
         // then
         assertEquals(1.0, accuracy, DELTA);
     }
 
     @Test
-    public void trainTestEvaluate_withLogicGateXOR_shouldNotConverge()
+    public void trainTestEvaluatePlot_withLogicGateXOR_shouldNotConverge()
     {
         // given
         DataSet dataSet = new LogicGateXOR();
@@ -58,6 +60,7 @@ public class PerceptronTest
         // when
         double[] weights = network.train(dataSet);
         double accuracy = network.evaluate(weights, dataSet);
+        ((Perceptron) network).plotErrorPerEpoch();
 
         // then
         assertNotEquals(1.0, accuracy, DELTA);

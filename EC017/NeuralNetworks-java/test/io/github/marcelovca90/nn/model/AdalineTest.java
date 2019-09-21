@@ -19,7 +19,7 @@ public class AdalineTest
     private static final double DELTA = 1e-9;
 
     @Test
-    public void trainTestEvaluate_withBloodTransfusion_shouldConverge()
+    public void trainTestEvaluatePlot_withBloodTransfusion_shouldConverge()
     {
         // given
         DataSet dataSet = new BloodTransfusion();
@@ -28,13 +28,14 @@ public class AdalineTest
         // when
         double[] weights = network.train(dataSet);
         double accuracy = network.evaluate(weights, dataSet);
+        ((Adaline) network).plotMeanSquaredErrorPerEpoch();
 
         // then
         assertNotEquals(0.0, accuracy, DELTA);
     }
 
     @Test
-    public void trainTestEvaluate_withDiabetes_shouldConverge()
+    public void trainTestEvaluatePlot_withDiabetes_shouldConverge()
     {
         // given
         DataSet dataSet = new Diabetes();
@@ -43,13 +44,14 @@ public class AdalineTest
         // when
         double[] weights = network.train(dataSet);
         double accuracy = network.evaluate(weights, dataSet);
+        ((Adaline) network).plotMeanSquaredErrorPerEpoch();
 
         // then
         assertNotEquals(0.0, accuracy, DELTA);
     }
 
     @Test
-    public void trainTestEvaluate_withTicTacToeEndgame_shouldConverge()
+    public void trainTestEvaluatePlot_withTicTacToeEndgame_shouldConverge()
     {
         // given
         DataSet dataSet = new TicTacToeEndgame();
@@ -58,6 +60,7 @@ public class AdalineTest
         // when
         double[] weights = network.train(dataSet);
         double accuracy = network.evaluate(weights, dataSet);
+        ((Adaline) network).plotMeanSquaredErrorPerEpoch();
 
         // then
         assertNotEquals(0.0, accuracy, DELTA);
