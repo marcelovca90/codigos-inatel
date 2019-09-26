@@ -1,0 +1,35 @@
+list<int> ladj[n]; // vertices de destino
+list<pair<int,int>> ladj[n]; // vertices de destino e pesos
+
+// a) verificar se existe uma aresta ligando dois vértices (de v para u)
+bool existeAresta(int v, int u)
+{
+    for (int i=0; i<ladj[v].size(); i++)
+        if (ladj[v][i] == u) // ou if (ladj[v][i].first == u), se ponderado
+            return true;
+    return false;
+}
+
+// b) obter o grau de um determinado vértice
+// atencao ao caso particular de laco(s)
+int grauDoVertice(int n, int v)
+{
+    int grau = ladj[v].size(); // numero de arestas saindo em v
+    for (int i=0; i<n; i++)
+        for (int j=0; j<ladj[i].size(); j++)
+        {
+            if (i == v)  // ja foi contabilizado na linha 17
+                continue;
+            else if (ladj[i][j] == v) // existe uma aresta chegando em v
+                grau++;
+        }
+    return grau;
+}
+
+// c) inserir uma aresta com peso no grafo
+void inserirAresta(int v, int u, int w, bool direcionado)
+{
+    ladj[v].push_back(make_pair(u,w));
+    if (!direcionado)
+        ladj[u].push_back(make_pair(v,w));
+}
