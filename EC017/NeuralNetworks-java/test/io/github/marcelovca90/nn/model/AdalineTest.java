@@ -6,6 +6,7 @@ import org.junit.Test;
 
 import io.github.marcelovca90.nn.data.DataSet;
 import io.github.marcelovca90.nn.data.sample.BloodTransfusion;
+import io.github.marcelovca90.nn.data.sample.Cryotherapy;
 import io.github.marcelovca90.nn.data.sample.Diabetes;
 import io.github.marcelovca90.nn.data.sample.TicTacToeEndgame;
 import io.github.marcelovca90.nn.math.ActivationFunction;
@@ -55,6 +56,22 @@ public class AdalineTest
     {
         // given
         DataSet dataSet = new TicTacToeEndgame();
+        NeuralNetwork network = new Adaline(LEARNING_RATE, ACTIVATION_FUNCTION, ERROR_DELTA_TOLERANCE);
+
+        // when
+        double[] weights = network.train(dataSet);
+        double accuracy = network.evaluate(weights, dataSet);
+        ((Adaline) network).plotMeanSquaredErrorPerEpoch();
+
+        // then
+        assertNotEquals(0.0, accuracy, DELTA);
+    }
+
+    @Test
+    public void trainTestEvaluatePlot_withCryotherapy_shouldConverge()
+    {
+        // given
+        DataSet dataSet = new Cryotherapy();
         NeuralNetwork network = new Adaline(LEARNING_RATE, ACTIVATION_FUNCTION, ERROR_DELTA_TOLERANCE);
 
         // when
