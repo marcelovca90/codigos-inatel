@@ -1,0 +1,18 @@
+procedimento FloodFill(x, y, corSemente, corNova)
+    // deteccao de bordas
+    se (cor[x][y] != corSemente)
+        return;
+    senao
+        cor[x][y] = corNova
+        // vizinhos verticais
+        se (y-1 >= 0) FloodFill(x, y-1, corSemente, corNova)
+        se (y+1 <= H) FloodFill(x, y+1, corSemente, corNova)
+        // vizinhos horizontais
+        se (x-1 >= 0) FloodFill(x-1, y, corSemente, corNova)
+        se (x+1 <= W) FloodFill(x+1, y, corSemente, corNova)
+        // vizinhos diagonais
+        se (x+1 <= W && y+1 <= H) FloodFill(x+1, y+1, corSemente, corNova) // Q1
+        se (x-1 >= 0 && y+1 <= H) FloodFill(x-1, y+1, corSemente, corNova) // Q2
+        se (x-1 >= 0 && y-1 >= 0) FloodFill(x-1, y-1, corSemente, corNova) // Q3
+        se (x+1 <= W && y-1 >= 0) FloodFill(x+1, y-1, corSemente, corNova) // Q4
+fim_procedimento
