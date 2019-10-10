@@ -1,5 +1,5 @@
 % https://swish.swi-prolog.org/
-% Secao 1.5, Exercicio 12
+% Secao 1.5, Exercicio 17 (7a edicao)
 
 homem(alberto).
 homem(silvio).
