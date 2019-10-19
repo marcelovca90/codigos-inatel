@@ -62,7 +62,7 @@ public class Adaline implements NeuralNetwork
             mseAfter = MathUtils.meanSquaredError(vArray, d);
 
             epoch++;
-            System.out.printf("Epoch: %d\tWeights: %s\tError: %s\n", epoch, Arrays.toString(w), mseAfter);
+            System.err.printf("Epoch: %d\tWeights: %s\tError: %s\n", epoch, Arrays.toString(w), mseAfter);
             plotDataX.add((double) epoch);
             plotDataY.add(mseAfter);
 

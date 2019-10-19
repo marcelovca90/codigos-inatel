@@ -55,7 +55,7 @@ public class Perceptron implements NeuralNetwork
                 }
             }
             epoch++;
-            System.out.printf("Epoch: %d\tWeights: %s\n", epoch, Arrays.toString(w));
+            System.err.printf("Epoch: %d\tWeights: %s\n", epoch, Arrays.toString(w));
             plotDataX.add((double) epoch);
             plotDataY.add(error ? 1.0 : 0.0);
 

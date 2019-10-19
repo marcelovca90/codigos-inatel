@@ -12,23 +12,30 @@ import io.github.marcelovca90.nn.math.HyperbolicTangent;
 public class MultilayerPerceptronTest
 {
     private static final double LEARNING_RATE = 1e-6;
+    private static final int NEURONS_IN_1ST_HIDDEN_LAYER = 14;
+    private static final int NEURONS_IN_2ND_HIDDEN_LAYER = 6;
     private static final ActivationFunction ACTIVATION_FUNCTION = new HyperbolicTangent();
     private static final double ERROR_DELTA_TOLERANCE = 1e-5;
     private static final double DELTA = 1e-9;
 
     @Test
-    public void test() throws InterruptedException
+    public void trainTestEvaluatePlot_withTicTacToeEndgame_shouldConverge() throws InterruptedException
     {
         // given
         DataSet dataSet = new TicTacToeEndgame();
-        NeuralNetwork network = new MultilayerPerceptron(LEARNING_RATE, ACTIVATION_FUNCTION, ERROR_DELTA_TOLERANCE);
+        MultilayerPerceptron network = new MultilayerPerceptron(
+            LEARNING_RATE,
+            NEURONS_IN_1ST_HIDDEN_LAYER,
+            NEURONS_IN_2ND_HIDDEN_LAYER,
+            ACTIVATION_FUNCTION,
+            ERROR_DELTA_TOLERANCE);
 
         // when
-        double[] weights = network.train(dataSet);
-        double accuracy = network.evaluate(weights, dataSet);
-        ((MultilayerPerceptron) network).plotErrorPerEpoch();
+        network.train(dataSet);
+        double accuracy = network.evaluate(dataSet);
+        network.plotErrorPerEpoch();
 
         // then
-        assertNotEquals(1.0, accuracy, DELTA);
+        assertNotEquals(0.0, accuracy, DELTA);
     }
 }
