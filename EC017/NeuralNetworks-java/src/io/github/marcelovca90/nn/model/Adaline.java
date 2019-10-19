@@ -43,7 +43,7 @@ public class Adaline implements NeuralNetwork
 
         do
         {
-            // calculate mse after before weights adjustments
+            // calculate mse before weights adjustments
             for (int i = 0; i < dataSet.getNumberOfSamples(); i++)
                 vArray[i] = MathUtils.dotProduct(x[i], w);
             mseBefore = MathUtils.meanSquaredError(vArray, d);
@@ -56,7 +56,7 @@ public class Adaline implements NeuralNetwork
                     w[j] += (n * (d[i] - v) * x[i][j]);
             }
 
-            // calculate mse after after weights adjustments
+            // calculate mse after weights adjustments
             for (int i = 0; i < dataSet.getNumberOfSamples(); i++)
                 vArray[i] = MathUtils.dotProduct(x[i], w);
             mseAfter = MathUtils.meanSquaredError(vArray, d);
