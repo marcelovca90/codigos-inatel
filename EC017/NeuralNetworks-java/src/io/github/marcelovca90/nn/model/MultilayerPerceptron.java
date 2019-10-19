@@ -39,16 +39,7 @@ public class MultilayerPerceptron
         this.plotDataY = new ArrayList<>();
     }
 
-    private double[][] generateRandomSynapticWeightsMatrix(int ni, int nj)
-    {
-        Random random = new Random(42L);
-        double[][] w = new double[ni][nj];
-        for (int i = 0; i < ni; i++)
-            w[i] = random.doubles(nj).toArray();
-        return w;
-    }
-
-    public int train(DataSet dataSet)
+    public double train(DataSet dataSet)
     {
         x = dataSet.getSamples();
         d = dataSet.getLabels();
@@ -87,7 +78,35 @@ public class MultilayerPerceptron
 
         } while (Double.compare(Math.abs(mseAfter - mseBefore), e) >= 0);
 
-        return epoch;
+        return mseAfter;
+    }
+
+    public double evaluate(DataSet dataSet)
+    {
+        x = dataSet.getSamples();
+        d = dataSet.getLabels();
+        long correct = 0;
+        long total = dataSet.getNumberOfSamples();
+        for (int i = 0; i < dataSet.getNumberOfSamples(); i++)
+        {
+            double y = Math.signum(feedForward(dataSet, i)[0]);
+            if (Double.compare(y, d[i]) == 0)
+            {
+                correct++;
+            }
+        }
+        double accuracy = (double) correct / (double) total;
+        System.out.printf("Accuracy: %.2f%% (%d/%d)\n", 100.0 * accuracy, correct, total);
+        return accuracy;
+    }
+
+    public void plotErrorPerEpoch()
+    {
+        PlotUtils.plot(
+            plotDataX.stream().mapToDouble(Double::doubleValue).toArray(),
+            "epoch",
+            plotDataY.stream().mapToDouble(Double::doubleValue).toArray(),
+            "error");
     }
 
     private double[] feedForward(DataSet dataSet, int k)
@@ -169,34 +188,14 @@ public class MultilayerPerceptron
         for (int i = 0; i < dataSet.getNumberOfFeatures(); i++)
             for (int j = 0; j < n1; j++)
                 w1[i][j] += n * delta1[j] * x[sampleIndex][i];
-        // printMatrix(w1, "w1'");
     }
 
-    public double evaluate(DataSet dataSet)
+    private double[][] generateRandomSynapticWeightsMatrix(int ni, int nj)
     {
-        x = dataSet.getSamples();
-        d = dataSet.getLabels();
-        long correct = 0;
-        long total = dataSet.getNumberOfSamples();
-        for (int i = 0; i < dataSet.getNumberOfSamples(); i++)
-        {
-            double y = Math.signum(feedForward(dataSet, i)[0]);
-            if (Double.compare(y, d[i]) == 0)
-            {
-                correct++;
-            }
-        }
-        double accuracy = (double) correct / (double) total;
-        System.out.printf("Accuracy: %.2f%% (%d/%d)\n", 100.0 * accuracy, correct, total);
-        return accuracy;
-    }
-
-    public void plotErrorPerEpoch()
-    {
-        PlotUtils.plot(
-            plotDataX.stream().mapToDouble(Double::doubleValue).toArray(),
-            "epoch",
-            plotDataY.stream().mapToDouble(Double::doubleValue).toArray(),
-            "error");
+        Random random = new Random(42L);
+        double[][] w = new double[ni][nj];
+        for (int i = 0; i < ni; i++)
+            w[i] = random.doubles(nj).toArray();
+        return w;
     }
 }
