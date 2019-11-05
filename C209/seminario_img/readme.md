@@ -2,7 +2,7 @@
 
 ###  Seminário sobre Formatos de Imagem
 
-|  Formato  |                       Grupo                       |             Implementações             |
+|  Formato  |                       Grupo                       |             Exemplo de Implementação             |
 |:---------:|:-------------------------------------------------:|:--------------------------------------:|
 | BPG       | André (1371), João (1376)                         | [https://github.com/mirrorer/libbpg](https://github.com/mirrorer/libbpg)     |
 | HEIF      | Henrique (1336), Pedro (1347), Thiago (1319)      | [https://github.com/strukturag/libheif](https://github.com/strukturag/libheif)  |
@@ -14,4 +14,4 @@
 - Introdução e aplicações 
 - Explicação do funcionamento 
 - Exemplos e comparação com outros formatos 
-- Manipulação via código
+- Manipulação via código e/ou <i>codec</i>
