@@ -15,3 +15,15 @@
 - Explicação do funcionamento 
 - Exemplos e comparação com outros formatos 
 - Manipulação via código e/ou <i>codec</i>
+
+### Tabela de comparação:
+
+|    Imagem   | Tamanho original (A) | Tamanho comprimido (B) | Taxa de compressão (B/A) |
+|:-----------:|:--------------------:|:----------------------:|:------------------------:|
+|   [barbara](https://raw.githubusercontent.com/marcelovca90/codigos-inatel/master/C209/seminario_img/imagens/barbara.png)   |        181 KB        |                        |                          |
+|     [boat](https://raw.githubusercontent.com/marcelovca90/codigos-inatel/master/C209/seminario_img/imagens/boat.png)    |        174 KB        |                        |                          |
+| [fingerprint](https://raw.githubusercontent.com/marcelovca90/codigos-inatel/master/C209/seminario_img/imagens/fingerprint.png) |        180 KB        |                        |                          |
+| [flintstones](https://raw.githubusercontent.com/marcelovca90/codigos-inatel/master/C209/seminario_img/imagens/flintstones.png) |        171 KB        |                        |                          |
+|   [house](https://raw.githubusercontent.com/marcelovca90/codigos-inatel/master/C209/seminario_img/imagens/house.png)    |         34 KB        |                        |                          |
+|     [lena](https://raw.githubusercontent.com/marcelovca90/codigos-inatel/master/C209/seminario_img/imagens/lena.png)    |        148 KB        |                        |                          |
+|   [peppers](https://raw.githubusercontent.com/marcelovca90/codigos-inatel/master/C209/seminario_img/imagens/peppers.png)   |         39 KB        |                        |                          |
