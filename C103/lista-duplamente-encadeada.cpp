@@ -70,9 +70,8 @@ bool estaVazia(Lista* list)
 bool estaPresente(Lista* list, int valor)
 {
     // cria um ponteiro para o primeiro elemento da lista
-    Lista* p;
     // e percore a lista enquanto o elemento atual não for nulo
-    for (p = list; p != NULL; p = p->prox)
+    for (Lista* p = list; p != NULL; p = p->prox)
         if (p->info == valor)
             return true;
     return false;
@@ -81,9 +80,8 @@ bool estaPresente(Lista* list, int valor)
 void imprimirDoInicioAoFim(Lista* list)
 {
     // cria um ponteiro para o primeiro elemento da lista
-    Lista* p;
     // e percore a lista enquanto o elemento atual não for nulo
-    for (p = list; p != NULL; p = p->prox)
+    for (Lista* p = list; p != NULL; p = p->prox)
         cout << p->info << endl;
     cout << endl;
 }
@@ -121,7 +119,9 @@ Lista* remover(Lista* list, int valor)
         // desaloca memória do primeiro elemento (a ser removido)
         delete list;
         // conserta o ponteiro do elemento anterior ao novo início
-        novoInicio->ant = NULL;
+        // (somente se o novo inicio nao for nulo)
+        if (novoInicio != NULL)
+            novoInicio->ant = NULL;
         // retorna o novo início da lista (isto é, o "ex" segundo elemento)
         return novoInicio;
     }
