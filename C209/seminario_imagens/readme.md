@@ -20,10 +20,10 @@
 
 |    Imagem   | Tamanho original (A) | Tamanho comprimido (B) | Taxa de compressão (B/A) |
 |:-----------:|:--------------------:|:----------------------:|:------------------------:|
-|   [barbara](https://raw.githubusercontent.com/marcelovca90/codigos-inatel/master/C209/seminario_img/imagens/barbara.png)   |        181 KB        |                        |                          |
-|     [boat](https://raw.githubusercontent.com/marcelovca90/codigos-inatel/master/C209/seminario_img/imagens/boat.png)    |        174 KB        |                        |                          |
-| [fingerprint](https://raw.githubusercontent.com/marcelovca90/codigos-inatel/master/C209/seminario_img/imagens/fingerprint.png) |        180 KB        |                        |                          |
-| [flintstones](https://raw.githubusercontent.com/marcelovca90/codigos-inatel/master/C209/seminario_img/imagens/flintstones.png) |        171 KB        |                        |                          |
-|   [house](https://raw.githubusercontent.com/marcelovca90/codigos-inatel/master/C209/seminario_img/imagens/house.png)    |         34 KB        |                        |                          |
-|     [lena](https://raw.githubusercontent.com/marcelovca90/codigos-inatel/master/C209/seminario_img/imagens/lena.png)    |        148 KB        |                        |                          |
-|   [peppers](https://raw.githubusercontent.com/marcelovca90/codigos-inatel/master/C209/seminario_img/imagens/peppers.png)   |         39 KB        |                        |                          |
+|   [barbara](https://raw.githubusercontent.com/marcelovca90/codigos-inatel/master/C209/seminario_imagens/imagens/barbara.png)   |        181 KB        |                        |                          |
+|     [boat](https://raw.githubusercontent.com/marcelovca90/codigos-inatel/master/C209/seminario_imagens/imagens/boat.png)    |        174 KB        |                        |                          |
+| [fingerprint](https://raw.githubusercontent.com/marcelovca90/codigos-inatel/master/C209/seminario_imagens/imagens/fingerprint.png) |        180 KB        |                        |                          |
+| [flintstones](https://raw.githubusercontent.com/marcelovca90/codigos-inatel/master/C209/seminario_imagens/imagens/flintstones.png) |        171 KB        |                        |                          |
+|   [house](https://raw.githubusercontent.com/marcelovca90/codigos-inatel/master/C209/seminario_imagens/imagens/house.png)    |         34 KB        |                        |                          |
+|     [lena](https://raw.githubusercontent.com/marcelovca90/codigos-inatel/master/C209/seminario_imagens/imagens/lena.png)    |        148 KB        |                        |                          |
+|   [peppers](https://raw.githubusercontent.com/marcelovca90/codigos-inatel/master/C209/seminario_imagens/imagens/peppers.png)   |         39 KB        |                        |                          |
