@@ -27,6 +27,7 @@
 |   [house](https://raw.githubusercontent.com/marcelovca90/codigos-inatel/master/C209/seminario_imagens/imagens/house.png)    |         34 KB        |                        |                          |
 |     [lena](https://raw.githubusercontent.com/marcelovca90/codigos-inatel/master/C209/seminario_imagens/imagens/lena.png)    |        148 KB        |                        |                          |
 |   [peppers](https://raw.githubusercontent.com/marcelovca90/codigos-inatel/master/C209/seminario_imagens/imagens/peppers.png)   |         39 KB        |                        |                          |
+|   [rainbow](https://raw.githubusercontent.com/marcelovca90/codigos-inatel/master/C209/seminario_imagens/imagens/rainbow.png)   |         3163 KB        |                        |                          |
 
 ### Apresentação:
 - Data: 12 de novembro de 2019 às 10h
