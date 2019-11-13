@@ -23,7 +23,9 @@ Lista* inserirNoInicio(Lista* list, int valor)
     // se este for o único elemento da lista circular,
     // então o próximo dele será ele mesmo (ciclo)
     if (list == NULL)
+    {
         novo->prox = novo;
+    }
     // caso contrário, o próximo dele será a lista antiga
     else
     {
@@ -32,7 +34,9 @@ Lista* inserirNoInicio(Lista* list, int valor)
         // conecta o último elemento da lista ao novo elemento
         Lista* aux = list;
         while (aux->prox != list)
+        {
             aux = aux->prox;
+        }
         aux->prox = novo;
     }
     // retorna o novo elemento (ou seja, a nova lista)
@@ -165,6 +169,15 @@ Lista* remover(Lista* list, int valor)
     }
 }
 
+Lista* removerTodos(Lista* list, int valor)
+{
+    while (estaPresente(list, valor))
+    {
+        list = remover(list, valor);
+    }
+    return list;
+}
+
 int main()
 {
     Lista* l = criar();
@@ -195,6 +208,16 @@ int main()
     
     cout << "teste 4: removendo o elemento do final" << endl;
     l = remover(l, 11);
+    imprimir(l);
+
+    cout << "teste 5: removendo todos elementos repetidos" << endl;
+    l = inserirNoFinal(l, 13);
+    l = inserirNoFinal(l, 13);
+    l = inserirNoFinal(l, 13);
+    cout << "antes da remocao: " << endl;
+    imprimir(l);
+    l = removerTodos(l, 13);
+    cout << "depois da remocao: " << endl;
     imprimir(l);
     
     cout << "3 esta presente ? " << estaPresente(l, 3) << endl;

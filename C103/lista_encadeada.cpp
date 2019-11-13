@@ -98,7 +98,6 @@ Lista* remover(Lista* list, int valor)
         // retorna o novo início da lista (isto é, o "ex" segundo elemento)
         return novo;
     }
-    
     // caso 3: remoção em qualquer outra posição
     else
     {
@@ -133,19 +132,6 @@ Lista* removerTodos(Lista* list, int valor)
         list = remover(list, valor);
     }
     return list;
-}
-
-double calcularMedia(Lista* list)
-{
-    double soma = 0.0, qtd = 0.0;
-    Lista* aux = list;
-    while (aux != NULL)
-    {
-        soma += aux->info;
-        qtd++;
-        aux = aux->prox;
-    }
-    return soma / qtd;
 }
 
 int main()
@@ -184,11 +170,11 @@ int main()
     l = inserirNoFinal(l, 13);
     l = inserirNoFinal(l, 13);
     l = inserirNoFinal(l, 13);
+    cout << "antes da remocao: " << endl;
     imprimir(l);
     l = removerTodos(l, 13);
+    cout << "depois da remocao: " << endl;
     imprimir(l);
-
-    cout << "media dos valores: " << calcularMedia(l) << endl << endl;
     
     cout << "3 esta presente ? " << estaPresente(l, 3) << endl;
     cout << "7 esta presente ? " << estaPresente(l, 7) << endl;

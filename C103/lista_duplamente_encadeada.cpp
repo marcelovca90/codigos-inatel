@@ -26,7 +26,9 @@ Lista* inserirNoInicio(Lista* list, int valor)
     novo->prox = list;
     // se a lista não estiver vazia, conecta-a ao novo elemento
     if (list != NULL)
+    {
         list->ant = novo;
+    }
     // retorna o novo elemento (ou seja, a nova lista)
     return novo;
 }
@@ -121,7 +123,9 @@ Lista* remover(Lista* list, int valor)
         // conserta o ponteiro do elemento anterior ao novo início
         // (somente se o novo inicio nao for nulo)
         if (novoInicio != NULL)
+        {
             novoInicio->ant = NULL;
+        }
         // retorna o novo início da lista (isto é, o "ex" segundo elemento)
         return novoInicio;
     }
@@ -160,6 +164,15 @@ Lista* remover(Lista* list, int valor)
     }
 }
 
+Lista* removerTodos(Lista* list, int valor)
+{
+    while (estaPresente(list, valor))
+    {
+        list = remover(list, valor);
+    }
+    return list;
+}
+
 int main()
 {
     Lista* l = criar();
@@ -194,6 +207,16 @@ int main()
     
     cout << "teste 4: removendo o elemento do final" << endl;
     l = remover(l, 11);
+    imprimirDoInicioAoFim(l);
+
+    cout << "teste 5: removendo todos elementos repetidos" << endl;
+    l = inserirNoFinal(l, 13);
+    l = inserirNoFinal(l, 13);
+    l = inserirNoFinal(l, 13);
+    cout << "antes da remocao: " << endl;
+    imprimirDoInicioAoFim(l);
+    l = removerTodos(l, 13);
+    cout << "depois da remocao: " << endl;
     imprimirDoInicioAoFim(l);
     
     cout << "3 esta presente ? " << estaPresente(l, 3) << endl;
