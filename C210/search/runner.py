@@ -4,21 +4,21 @@ import numpy as np
 
 if __name__ == '__main__':
     
-    #Creating a start state for the game
+    # Creating a start state for the game
     start = np.matrix([[2, 8, 3],[1, 6, 4],[7, 0, 5]])
     print('Start:\n%s' % start)
 
-    #Creating a target state for the game
+    # Creating a target state for the game
     target = np.matrix([[1, 2, 3],[8, 0, 4],[7, 6, 5]])    
     print('Target:\n%s' % target)
     
-    #Creating an problem object based on FindPath class
+    #C reating an problem object based on FindPath class
     problem = sliding_puzzle.SlidingPuzzle(3)
     
-    #Creating an object for breadth first search algorithm for ``FindPath`` problem
+    # Creating an object for breadth first search algorithm for ``FindPath`` problem
     bfs = breadth_first_search.BreadthFirstSearch(problem)    
     
-    #Finding solution
+    # Finding solution
     solution,visited = bfs.search(start,target)
     if solution:
         print('Solution found!')

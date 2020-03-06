@@ -2,28 +2,32 @@ import numpy as np
 
 class SlidingPuzzle(object): 
     '''
-    classdocs
+    This class implements an sliding puzzle problem of arbitrary size.
     '''
 
     def __init__(self,num_blocks):
         '''
         Constructor
+        Any instance of this class must receive a ``num_blocks`` parameter that
+        represents the dimensions (i.e. the sides' length) of the puzzle grid.
         '''
         self.num_blocks = num_blocks
                 
     def __findZeroPosition(self,state):
-        
+        '''
+        This method returns the row and column of the ``zero`` (0) element.
+        '''
         for i in range(self.num_blocks):
             for j in range(self.num_blocks):
                 if state[i,j] == 0:
                     row_index,col_index = i,j
-        return row_index,col_index   
+        return row_index,col_index
     
-    
-    def ObjectiveTest(self,current,target): 
-        """Return ``True`` if ``current`` state corresponds to the ``target`` state 
-        """ 
-        
+    def EqualityTest(self,current,target): 
+        '''
+        This method compares and returns True if a given ``current``
+        state matches a given ``target`` state, or False otherwise.
+        '''
         solution = True 
         for i in range(self.num_blocks):
             if solution == False:
@@ -32,44 +36,35 @@ class SlidingPuzzle(object):
                 if current[i,j] != target[i,j]:
                     solution = False
                     break
-        return  solution
-    
-    def EqualityTest(self,state_a,state_b): 
-        """Return ``True`` if ``current`` state corresponds to the ``target`` state 
-        """ 
-        solution = True 
-        for i in range(self.num_blocks):
-            if solution == False:
-                break
-            for j in range(self.num_blocks):
-                if state_a[i,j] != state_b[i,j]:
-                    solution = False
-                    break
         return solution
  
-    def ExpandSolution(self,current): 
-        """Returns all possible states from ``current`` 
-        """ 
+    def ExpandSolution(self,current):
+        '''
+        This method Returns all possible states from a given ``current`` state.
+        '''
         
-        # Inicializa o vetor com as solucoes expandidas 
+        # Initialize a list that will contain all the expanded states
         newSolutions = [] 
         
-        # Para cada solucao... 
+        # Find the position (i.e. row and column) of the zero cell, which
+        # will be called zero-row and zero-col from now on, respectively
         row,column = self.__findZeroPosition(current)
-                
-        # Verifica quais solucoes filhas devem ser criadas. 
-        # Se a linha e maior que 0 quer dizer que podemos deslocar o espaco 
-        # uma casa para cima 
+
+        # Attempt to move the zero-cell UPWARDS:
+        # If the zero-row is greater than zero, the zero-cell can be moved upwards
+        # This new state is created and inserted in the future states list
         if row > 0: 
-            new_row=row-1
+            new_row = row-1
             newSolution = np.copy(current)
             TargetBlock = newSolution[new_row,column]
             newSolution[new_row,column] = 0
             newSolution[row,column] = TargetBlock
             newSolutions.append(newSolution)
                 
-        # Se a linha e menor que num_blocks quer dizer que podemos deslocar o espaco 
-        # uma casa para baixo 
+
+        # Attempt to move the zero-cell DOWNWARDS:
+        # If the zero-row is smaller than num_blocks, the zero-cell can be moved downwards
+        # This new state is created and inserted in the future states list
         if row < self.num_blocks-1: 
             new_row = row+1
             newSolution = np.copy(current)
@@ -78,8 +73,9 @@ class SlidingPuzzle(object):
             newSolution[row,column] = TargetBlock
             newSolutions.append(newSolution)
 
-        # Se a coluna e maior que 0 quer dizer que podemos deslocar o espaco 
-        # uma casa para esquerda 
+        # Attempt to move the zero-cell to the LEFT:
+        # If the zero-col is greater than zero, the zero-cell can be moved left
+        # This new state is created and inserted in the future states list
         if column > 0: 
             new_col = column-1
             newSolution = np.copy(current)
@@ -88,8 +84,9 @@ class SlidingPuzzle(object):
             newSolution[row,column] = TargetBlock
             newSolutions.append(newSolution)         
 
-        # Se a coluna e menor que 3 quer dizer que podemos deslocar o espaco 
-        # uma casa para direita 
+        # Attempt to move the zero-cell to the RIGHT:
+        # If the zero-col is smaller than num_blocks, the zero-cell can be moved right
+        # This new state is created and inserted in the future states list
         if column < self.num_blocks-1:
             new_col = column+1
             newSolution = np.copy(current)
