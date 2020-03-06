@@ -21,6 +21,7 @@ class SlidingPuzzle(object):
             for j in range(self.num_blocks):
                 if state[i,j] == 0:
                     row_index,col_index = i,j
+                    break
         return row_index,col_index
     
     def EqualityTest(self,current,target): 
@@ -40,11 +41,11 @@ class SlidingPuzzle(object):
  
     def ExpandSolution(self,current):
         '''
-        This method Returns all possible states from a given ``current`` state.
+        This method returns all possible states from a given ``current`` state.
         '''
         
         # Initialize a list that will contain all the expanded states
-        newSolutions = [] 
+        newSolutions = []
         
         # Find the position (i.e. row and column) of the zero cell, which
         # will be called zero-row and zero-col from now on, respectively

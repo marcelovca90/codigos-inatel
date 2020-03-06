@@ -1,8 +1,8 @@
-from queue import Queue
+from queue import LifoQueue
         
-class BreadthFirstSearch(object):
+class DepthFirstSearch(object):
     '''
-    This class implements the breadth-first search algorithm.
+    This class implements the depth-first search algorithm.
     '''
 
     def __init__(self, problem):
@@ -35,12 +35,12 @@ class BreadthFirstSearch(object):
     
     def search(self,start,target):
         '''
-        This method performs the breadth-first search, where the order
+        This method performs the depth-first search, where the order
         of the visited states is controlled by a queue data structure.
         '''
 
-        # create an empty queue
-        frontier = Queue()
+        # create an empty stack
+        frontier = LifoQueue()
 
         # insert ``start`` state in the queue
         frontier.put(start)

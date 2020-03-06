@@ -9,14 +9,14 @@ if __name__ == '__main__':
     print('Start:\n%s' % start)
 
     # Creating a target state for the game
-    target = np.matrix([[1, 0],[2, 3]])    
+    target = np.matrix([[2, 1],[3, 0]])
     print('Target:\n%s' % target)
     
-    #C reating an problem object based on FindPath class
+    # Creating an problem object based on FindPath class
     problem = sliding_puzzle.SlidingPuzzle(2)
     
     # Creating an object for breadth first search algorithm for ``FindPath`` problem
-    bfs = breadth_first_search.BreadthFirstSearch(problem)    
+    bfs = breadth_first_search.BreadthFirstSearch(problem)
     
     # Finding solution
     solution,visited = bfs.search(start,target)
@@ -27,4 +27,4 @@ if __name__ == '__main__':
             print('%s\n' % state)
         print('Number of visited states: %s\n' % len(visited))
     else:
-        print('Solution not found!')        
+        print('Solution not found!')
