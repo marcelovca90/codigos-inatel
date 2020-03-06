@@ -49,13 +49,13 @@ class BreadthFirstSearch(object):
         solution = False
         visited = []
         visit_count = 0
-        
+
         # repeat while there are not visited candidate solutions
         while not frontier.empty():
             # take the first candidate solution
             current = frontier.get()
             visited.append(current)
-                        
+            
             # evaluate is the current state is the objective
             if self.problem.EqualityTest(current,target) == True:
                 # if true, then the search is over
@@ -63,7 +63,7 @@ class BreadthFirstSearch(object):
                 break
             else:
                 visit_count += 1
-                print("Visiting %d" % visit_count)
+                print("Visit # %d" % visit_count)
                 # expand new candidate solutions from current 
                 new_solutions = self.problem.ExpandSolution(current)
                 # iterate over all expanded solutions 
@@ -72,5 +72,5 @@ class BreadthFirstSearch(object):
                     if  self.__isNotIn(next_item,visited) == True:
                         # if not, add to the queue for evaluation
                         frontier.put(next_item)
-                    
+
         return solution,visited

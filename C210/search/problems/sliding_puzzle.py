@@ -56,11 +56,10 @@ class SlidingPuzzle(object):
         if row > 0: 
             new_row = row-1
             newSolution = np.copy(current)
-            TargetBlock = newSolution[new_row,column]
+            targetBlock = newSolution[new_row,column]
             newSolution[new_row,column] = 0
-            newSolution[row,column] = TargetBlock
+            newSolution[row,column] = targetBlock
             newSolutions.append(newSolution)
-                
 
         # Attempt to move the zero-cell DOWNWARDS:
         # If the zero-row is smaller than num_blocks, the zero-cell can be moved downwards
@@ -68,9 +67,9 @@ class SlidingPuzzle(object):
         if row < self.num_blocks-1: 
             new_row = row+1
             newSolution = np.copy(current)
-            TargetBlock = newSolution[new_row,column]
+            targetBlock = newSolution[new_row,column]
             newSolution[new_row,column] = 0
-            newSolution[row,column] = TargetBlock
+            newSolution[row,column] = targetBlock
             newSolutions.append(newSolution)
 
         # Attempt to move the zero-cell to the LEFT:
@@ -79,9 +78,9 @@ class SlidingPuzzle(object):
         if column > 0: 
             new_col = column-1
             newSolution = np.copy(current)
-            TargetBlock = newSolution[row,new_col]
+            targetBlock = newSolution[row,new_col]
             newSolution[row,new_col] = 0
-            newSolution[row,column] = TargetBlock
+            newSolution[row,column] = targetBlock
             newSolutions.append(newSolution)         
 
         # Attempt to move the zero-cell to the RIGHT:
@@ -90,9 +89,9 @@ class SlidingPuzzle(object):
         if column < self.num_blocks-1:
             new_col = column+1
             newSolution = np.copy(current)
-            TargetBlock = newSolution[row,new_col]
+            targetBlock = newSolution[row,new_col]
             newSolution[row,new_col] = 0
-            newSolution[row,column] = TargetBlock
+            newSolution[row,column] = targetBlock
             newSolutions.append(newSolution)
        
         return newSolutions
