@@ -18,7 +18,7 @@ class DepthFirstSearch(object):
         '''
         self.problem = problem
         
-    def __isNotIn(self,current_state,visited_states):
+    def __isNotIn(self, current_state, visited_states):
         '''
         This method is responsible for checking if a ``current_state`` was already
         visited during search. If true, it is necessary to compare ``current_state``
@@ -33,7 +33,7 @@ class DepthFirstSearch(object):
                 break
         return Test
     
-    def search(self,start,target):
+    def search(self, start, target):
         '''
         This method performs the depth-first search, where the order
         of the visited states is controlled by a stack data structure.

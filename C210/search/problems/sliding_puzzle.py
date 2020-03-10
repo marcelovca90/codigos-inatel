@@ -5,7 +5,7 @@ class SlidingPuzzle(object):
     This class implements an sliding puzzle problem of arbitrary size.
     '''
 
-    def __init__(self,num_blocks):
+    def __init__(self, num_blocks):
         '''
         Constructor
         Any instance of this class must receive a ``num_blocks`` parameter that
@@ -13,7 +13,7 @@ class SlidingPuzzle(object):
         '''
         self.num_blocks = num_blocks
                 
-    def __findZeroPosition(self,state):
+    def __findZeroPosition(self, state):
         '''
         This method returns the row and column of the ``zero`` (0) element.
         '''
@@ -24,18 +24,18 @@ class SlidingPuzzle(object):
                     break
         return row_index,col_index
 
-    def __numElemWrongPosition(self,state,target):
+    def __numElemWrongPosition(self, current, target):
         '''
         This method returns the number of elements in the wrong position.
         '''
         wrong = 0
         for i in range(self.num_blocks):
             for j in range(self.num_blocks):
-                if state[i,j] != target[i,j]:
+                if current[i,j] != target[i,j]:
                     wrong += 1
         return wrong
     
-    def EqualityTest(self,current,target): 
+    def EqualityTest(self, current, target): 
         '''
         This method compares and returns True if a given ``current``
         state matches a given ``target`` state, or False otherwise.
@@ -50,7 +50,7 @@ class SlidingPuzzle(object):
                     break
         return solution
  
-    def ExpandSolution(self,current):
+    def ExpandSolution(self, current):
         '''
         This method returns all possible states from a given ``current`` state.
         '''
@@ -108,7 +108,7 @@ class SlidingPuzzle(object):
        
         return newSolutions
 
-    def HeuristicCost(self,current,target):
+    def HeuristicCost(self, current, target):
         '''
         This method returns the heuristic cost for the ``current`` state.
         '''

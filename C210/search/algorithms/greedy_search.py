@@ -1,4 +1,4 @@
-from priority_queue import PriorityQueue
+import heapq
         
 class GreedySearch(object):
     '''
@@ -18,7 +18,7 @@ class GreedySearch(object):
         '''
         self.problem = problem
         
-    def __isNotIn(self,current_state,visited_states):
+    def __isNotIn(self, current_state, visited_states):
         '''
         This method is responsible for checking if a ``current_state`` was already
         visited during search. If true, it is necessary to compare ``current_state``
@@ -33,7 +33,7 @@ class GreedySearch(object):
                 break
         return Test
     
-    def search(self,start,target):
+    def search(self, start, target):
         '''
         This method performs the greedy search, where the order of the
         visited states is controlled by a priority queue data structure.
@@ -41,10 +41,10 @@ class GreedySearch(object):
         '''
         
         # create an empty priority queue
-        frontier = PriorityQueue()
+        frontier = []
         
         # insert ``start`` state in the priority queue
-        frontier.put(start, 0)
+        heapq.heappush(frontier, (0,start))
         
         # initialize control variables
         solution = False
@@ -52,9 +52,9 @@ class GreedySearch(object):
         visit_count = 0
         
         # repeat while there are not visited candidate solutions
-        while not frontier.empty():
+        while not len(frontier) == 0:
             # take the first candidate solution
-            current = frontier.get()
+            current = heapq.heappop(frontier)[1]
             visited.append(current)
             
             # evaluate is the current state matches the objective
@@ -76,6 +76,6 @@ class GreedySearch(object):
                         print("%s" % next_item)
                         print("h = %d" % priority)
                         # and add it to the priority queue for evaluation
-                        frontier.put(next_item,priority)
+                        heapq.heappush(frontier, (priority,next_item))
                     
         return solution,visited
