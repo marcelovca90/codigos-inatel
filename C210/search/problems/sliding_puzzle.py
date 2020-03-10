@@ -23,6 +23,17 @@ class SlidingPuzzle(object):
                     row_index,col_index = i,j
                     break
         return row_index,col_index
+
+    def __numElemWrongPosition(self,state,target):
+        '''
+        This method returns the number of elements in the wrong position.
+        '''
+        wrong = 0
+        for i in range(self.num_blocks):
+            for j in range(self.num_blocks):
+                if state[i,j] != target[i,j]:
+                    wrong += 1
+        return wrong
     
     def EqualityTest(self,current,target): 
         '''
@@ -96,3 +107,9 @@ class SlidingPuzzle(object):
             newSolutions.append(newSolution)
        
         return newSolutions
+
+    def HeuristicCost(self,current,target):
+        '''
+        This method returns the heuristic cost for the ``current`` state.
+        '''
+        return self.__numElemWrongPosition(current,target)

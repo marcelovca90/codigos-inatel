@@ -1,4 +1,4 @@
-from algorithms import breadth_first_search
+from algorithms import greedy_search
 from problems import sliding_puzzle
 import numpy as np
 
@@ -12,19 +12,15 @@ if __name__ == '__main__':
     target = np.matrix([[2, 1],[3, 0]])
     print('Target:\n%s' % target)
     
-    # Creating an problem object based on FindPath class
+    # Creating an object for the problem
     problem = sliding_puzzle.SlidingPuzzle(2)
     
-    # Creating an object for breadth first search algorithm for ``FindPath`` problem
-    bfs = breadth_first_search.BreadthFirstSearch(problem)
+    # Creating an object for the search algorithm
+    gs = greedy_search.GreedySearch(problem)
     
-    # Finding solution
-    solution,visited = bfs.search(start,target)
+    # Searching for the solution
+    solution,visited = gs.search(start,target)
     if solution:
         print('Solution found!')
-        print('Visited states:\n')
-        for state in visited:
-            print('%s\n' % state)
-        print('Number of visited states: %s\n' % len(visited))
     else:
         print('Solution not found!')

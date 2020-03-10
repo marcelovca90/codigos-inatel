@@ -31,18 +31,18 @@ class DepthFirstSearch(object):
             if self.problem.EqualityTest(state,current_state) == True:
                 Test = False
                 break
-        return Test    
+        return Test
     
     def search(self,start,target):
         '''
         This method performs the depth-first search, where the order
-        of the visited states is controlled by a queue data structure.
+        of the visited states is controlled by a stack data structure.
         '''
 
         # create an empty stack
         frontier = LifoQueue()
 
-        # insert ``start`` state in the queue
+        # insert ``start`` state in the stack
         frontier.put(start)
         
         # initialize control variables
@@ -56,7 +56,7 @@ class DepthFirstSearch(object):
             current = frontier.get()
             visited.append(current)
             
-            # evaluate is the current state is the objective
+            # evaluate is the current state matches the objective
             if self.problem.EqualityTest(current,target) == True:
                 # if true, then the search is over
                 solution = True
@@ -64,12 +64,13 @@ class DepthFirstSearch(object):
             else:
                 visit_count += 1
                 print("Visit # %d" % visit_count)
-                # expand new candidate solutions from current 
+                # expand new candidate solutions from current
                 new_solutions = self.problem.ExpandSolution(current)
-                # iterate over all expanded solutions 
+                # iterate over all expanded solutions
                 for next_item in new_solutions:
                     # check if each expanded solution was already visited
                     if self.__isNotIn(next_item,visited) == True:
+                        print("%s" % next_item)
                         # if not, add to the queue for evaluation
                         frontier.put(next_item)
 

@@ -14,7 +14,7 @@ class BreadthFirstSearch(object):
             - ExpandSolution(current): a function that returns all possible solutions from a
             given ``current`` state.
             - EqualityTest(current,target): a function that evaluates if a given ``current``
-            state corresponds to the ``target`` state, i.e., it compares the states.         
+            state corresponds to the ``target`` state, i.e., it compares the states.
         '''
         self.problem = problem
         
@@ -31,7 +31,7 @@ class BreadthFirstSearch(object):
             if self.problem.EqualityTest(state,current_state) == True:
                 Test = False
                 break
-        return Test    
+        return Test
     
     def search(self,start,target):
         '''
@@ -56,7 +56,7 @@ class BreadthFirstSearch(object):
             current = frontier.get()
             visited.append(current)
             
-            # evaluate is the current state is the objective
+            # evaluate is the current state matches the objective
             if self.problem.EqualityTest(current,target) == True:
                 # if true, then the search is over
                 solution = True
@@ -64,12 +64,13 @@ class BreadthFirstSearch(object):
             else:
                 visit_count += 1
                 print("Visit # %d" % visit_count)
-                # expand new candidate solutions from current 
+                # expand new candidate solutions from current
                 new_solutions = self.problem.ExpandSolution(current)
-                # iterate over all expanded solutions 
+                # iterate over all expanded solutions
                 for next_item in new_solutions:
                     # check if each expanded solution was already visited
                     if self.__isNotIn(next_item,visited) == True:
+                        print("%s" % next_item)
                         # if not, add to the queue for evaluation
                         frontier.put(next_item)
 
