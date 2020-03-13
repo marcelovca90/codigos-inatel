@@ -9,12 +9,12 @@ class DepthFirstSearch(object):
         '''
         Constructor
         Any instance of this class must receive a ``problem`` parameter that is responsible
-        for controlling the problem evaluation and the next possible solutions.
+        for controlling the problem evaluation and the next possible states.
         This parameter have two mandatory functions:
-            - ExpandSolution(current): a function that returns all possible solutions from a
-            given ``current`` state.
+            - ExpandState(current): a function that returns all possible states from a given
+            ``current`` state.
             - EqualityTest(current,target): a function that evaluates if a given ``current``
-            state corresponds to the ``target`` state, i.e., it compares the states.         
+            state corresponds to the ``target`` state, i.e., it compares the states.
         '''
         self.problem = problem
         
@@ -46,32 +46,32 @@ class DepthFirstSearch(object):
         frontier.put(start)
         
         # initialize control variables
-        solution = False
-        visited = []
+        solution_found = False
+        visited_states = []
         visit_count = 0
 
-        # repeat while there are not visited candidate solutions
+        # repeat while there are states eligible to be visited
         while not frontier.empty():
             # take the first candidate solution
             current = frontier.get()
-            visited.append(current)
+            visited_states.append(current)
             
             # evaluate is the current state matches the objective
             if self.problem.EqualityTest(current,target) == True:
                 # if true, then the search is over
-                solution = True
+                solution_found = True
                 break
             else:
                 visit_count += 1
                 print("Visit # %d" % visit_count)
-                # expand new candidate solutions from current
-                new_solutions = self.problem.ExpandSolution(current)
-                # iterate over all expanded solutions
-                for next_item in new_solutions:
-                    # check if each expanded solution was already visited
-                    if self.__isNotIn(next_item,visited) == True:
-                        print("%s" % next_item)
-                        # if not, add to the queue for evaluation
-                        frontier.put(next_item)
+                # compute the new possible states given the current state
+                new_states = self.problem.ExpandState(current)
+                # iterate over the new states
+                for state in new_states:
+                    # check if each new state was already visited
+                    if self.__isNotIn(state,visited_states) == True:
+                        print("%s" % state)
+                        # if not, add to the stack for evaluation
+                        frontier.put(state)
 
-        return solution,visited
+        return solution_found,visited_states

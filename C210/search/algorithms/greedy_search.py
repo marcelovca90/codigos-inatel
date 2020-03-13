@@ -1,5 +1,5 @@
 import heapq
-        
+
 class GreedySearch(object):
     '''
     This class implements the greedy search algorithm.
@@ -9,10 +9,10 @@ class GreedySearch(object):
         '''
         Constructor
         Any instance of this class must receive a ``problem`` parameter that is responsible
-        for controlling the problem evaluation and the next possible solutions.
+        for controlling the problem evaluation and the next possible states.
         This parameter have two mandatory functions:
-            - ExpandSolution(current): a function that returns all possible solutions from a
-            given ``current`` state.
+            - ExpandState(current): a function that returns all possible states from a given
+            ``current`` state.
             - EqualityTest(current,target): a function that evaluates if a given ``current``
             state corresponds to the ``target`` state, i.e., it compares the states.
         '''
@@ -44,38 +44,40 @@ class GreedySearch(object):
         frontier = []
         
         # insert ``start`` state in the priority queue
-        heapq.heappush(frontier, (0,start))
+        heapq.heappush(frontier, (0,0,start))
         
         # initialize control variables
-        solution = False
-        visited = []
+        state_id = 0
+        solution_found = False
+        visited_states = []
         visit_count = 0
         
-        # repeat while there are not visited candidate solutions
+        # repeat while there are states eligible to be visited
         while not len(frontier) == 0:
-            # take the first candidate solution
-            current = heapq.heappop(frontier)[1]
-            visited.append(current)
+            # take the first candidate state
+            current = heapq.heappop(frontier)[2]
+            visited_states.append(current)
             
             # evaluate is the current state matches the objective
             if self.problem.EqualityTest(current,target) == True:
                 # if true, then the search is over
-                solution = True
+                solution_found = True
                 break
             else:
                 visit_count += 1
                 print("Visit # %d" % visit_count)
-                # expand new candidate solutions from current 
-                new_solutions = self.problem.ExpandSolution(current)
-                # iterate over all expanded solutions
-                for next_item in new_solutions:
-                    # check if each expanded solution was already visited
-                    if self.__isNotIn(next_item, visited) == True:
+                # compute the new possible states given the current state
+                new_states = self.problem.ExpandState(current)
+                # iterate over the new states
+                for state in new_states:
+                    # check if each new state was already visited
+                    if self.__isNotIn(state, visited_states) == True:
                         # if not, evaluate the associated heuristic
-                        priority = self.problem.HeuristicCost(next_item,target)
-                        print("%s" % next_item)
+                        state_id += 1
+                        priority = self.problem.HeuristicCost(state,target)
+                        print("%s" % state)
                         print("h = %d" % priority)
                         # and add it to the priority queue for evaluation
-                        heapq.heappush(frontier, (priority,next_item))
+                        heapq.heappush(frontier,(priority,state_id,state))
                     
-        return solution,visited
+        return solution_found,visited_states
