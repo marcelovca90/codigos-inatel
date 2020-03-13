@@ -17,7 +17,7 @@ if __name__ == '__main__':
     
     # Creating an object for the search algorithm
     gs = greedy_search.GreedySearch(problem)
-    
+
     # Searching for the solution
     solution,visited = gs.search(start,target)
     if solution:

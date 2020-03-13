@@ -1,4 +1,5 @@
 import numpy as np
+from sklearn.metrics import pairwise_distances
 
 class SlidingPuzzle(object): 
     '''
@@ -45,6 +46,20 @@ class SlidingPuzzle(object):
                 element = current[i,j]
                 row,col = self.__findPosition(target, element)
                 dist = abs(row - i) + abs(col - j)
+                totalDist += dist
+        return totalDist
+
+    def __heurTotalCustomDistance(self, current, target, metric_name):
+        '''
+        This method returns the sum of all custom distances, such as those mentioned in:
+        https://scikit-learn.org/stable/modules/generated/sklearn.metrics.pairwise_distances.html
+        '''
+        totalDist = 0
+        for i in range(self.num_blocks):
+            for j in range(self.num_blocks):
+                element = current[i,j]
+                row,col = self.__findPosition(target, element)
+                dist = pairwise_distances([[i,j]], [[row,col]], metric=metric_name)
                 totalDist += dist
         return totalDist
     
