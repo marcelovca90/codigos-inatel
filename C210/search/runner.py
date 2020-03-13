@@ -19,8 +19,8 @@ if __name__ == '__main__':
     gs = greedy_search.GreedySearch(problem)
 
     # Searching for the solution
-    solution,visited = gs.search(start,target)
+    solution,visited,steps = gs.search(start,target)
     if solution:
-        print('Solution found!')
+        print('Solution found in %d steps!' % steps)
     else:
         print('Solution not found!')

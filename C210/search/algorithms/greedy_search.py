@@ -80,4 +80,4 @@ class GreedySearch(object):
                         # and add it to the priority queue for evaluation
                         heapq.heappush(frontier,(priority,state_id,state))
                     
-        return solution_found,visited_states
+        return solution_found,visited_states,visit_count
