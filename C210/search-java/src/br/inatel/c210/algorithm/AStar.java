@@ -4,6 +4,7 @@ import static java.lang.Double.POSITIVE_INFINITY;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -24,7 +25,16 @@ public class AStar
         // The set of discovered nodes that may need to be (re-)expanded.
         // Initially, only the start node is known.
         // This is usually implemented as a min-heap or priority queue rather than a hash-set.
-        Queue<Node> openSet = new PriorityQueue<>((a, b) -> h.compare(a, b, goal));
+        Queue<Node> openSet = new PriorityQueue<>(new Comparator<Node>()
+        {
+            @Override
+            public int compare(Node a, Node b)
+            {
+                Double h1 = h.compute(a, goal);
+                Double h2 = h.compute(b, goal);
+                return Double.compare(h1, h2);
+            }
+        });
         openSet.add(start);
 
         // For node n, cameFrom[n] is the node immediately preceding it on the cheapest path from start
