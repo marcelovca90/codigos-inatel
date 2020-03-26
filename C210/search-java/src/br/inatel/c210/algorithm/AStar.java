@@ -2,7 +2,6 @@ package br.inatel.c210.algorithm;
 
 import static java.lang.Double.POSITIVE_INFINITY;
 
-import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.HashMap;
@@ -56,7 +55,7 @@ public class AStar
             Node current = openSet.element();
             if (current.equals(goal))
             {
-                return reconstructPath(cameFrom, current);
+                return Graph.reconstructPath(cameFrom, current);
             }
             openSet.remove();
 
@@ -84,21 +83,5 @@ public class AStar
 
         // Open set is empty but goal was never reached
         return Collections.emptyList();
-    }
-
-    private static List<Node> reconstructPath(Map<Node, Node> cameFrom, Node current)
-    {
-        List<Node> totalPath = new ArrayList<>();
-        totalPath.add(current);
-
-        while (cameFrom.keySet().contains(current))
-        {
-            current = cameFrom.get(current);
-            totalPath.add(current);
-        }
-
-        Collections.reverse(totalPath);
-
-        return totalPath;
     }
 }

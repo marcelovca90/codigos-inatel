@@ -1,8 +1,11 @@
 package br.inatel.c210.model;
 
 import java.util.AbstractMap.SimpleEntry;
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Set;
@@ -30,5 +33,21 @@ public class Graph
     public Set<Entry<Node, Double>> getNeighbors(Node node)
     {
         return this.adjacencyList.get(node);
+    }
+
+    public static List<Node> reconstructPath(Map<Node, Node> cameFrom, Node current)
+    {
+        List<Node> totalPath = new ArrayList<>();
+        totalPath.add(current);
+
+        while (cameFrom.keySet().contains(current))
+        {
+            current = cameFrom.get(current);
+            totalPath.add(current);
+        }
+
+        Collections.reverse(totalPath);
+
+        return totalPath;
     }
 }

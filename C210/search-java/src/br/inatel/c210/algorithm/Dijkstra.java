@@ -1,7 +1,7 @@
 package br.inatel.c210.algorithm;
 
-import java.util.ArrayList;
-import java.util.Collections;
+import static java.lang.Double.POSITIVE_INFINITY;
+
 import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
@@ -16,65 +16,60 @@ public class Dijkstra
 {
     public static List<Node> run(Graph g, Node start, Node goal)
     {
-        Map<Node, Double> dist = new HashMap<>();
+        // keeps the distance from start to a given node
+        Map<Node, Double> distanceFromStart = new HashMap<>();
+
+        // keeps the information about which node lead to another node
         Map<Node, Node> cameFrom = new HashMap<>();
 
-        dist.put(start, 0.0);
+        // the distance from start to start is... zero! :-)
+        distanceFromStart.put(start, 0.0);
 
-        PriorityQueue<Node> Q = new PriorityQueue<>(new Comparator<Node>()
+        // creates a priority queue based on distance from start, i.e., the
+        // node with the smaller distance from start has the highest priority
+        PriorityQueue<Node> queue = new PriorityQueue<>(new Comparator<Node>()
         {
             @Override
             public int compare(Node a, Node b)
             {
-                Double d1 = dist.getOrDefault(a, Double.POSITIVE_INFINITY);
-                Double d2 = dist.getOrDefault(b, Double.POSITIVE_INFINITY);
+                Double d1 = distanceFromStart.getOrDefault(a, POSITIVE_INFINITY);
+                Double d2 = distanceFromStart.getOrDefault(b, POSITIVE_INFINITY);
                 return Double.compare(d1, d2);
             }
         });
 
-        for (Node v : g.getNodes())
+        // initialize maps with vertices in the graph
+        for (Node vertex : g.getNodes())
         {
-            if (!v.equals(start))
+            if (!vertex.equals(start))
             {
-                dist.put(v, Double.POSITIVE_INFINITY);
-                cameFrom.put(v, null);
+                distanceFromStart.put(vertex, POSITIVE_INFINITY);
+                cameFrom.put(vertex, null);
             }
-            Q.add(v);
+            queue.add(vertex);
         }
 
-        while (!Q.isEmpty())
+        // iterate through all nodes
+        while (!queue.isEmpty())
         {
-            Node u = Q.element();
-            Q.remove();
-            for (Entry<Node, Double> v_entry : g.getNeighbors(u))
+            // retrieves the node with minimal distance from start
+            Node current = queue.element();
+            queue.remove();
+            for (Entry<Node, Double> neighbor_entry : g.getNeighbors(current))
             {
-                Node v = v_entry.getKey();
-                Double length = v_entry.getValue();
-                Double alt = dist.get(u) + length;
-                if (alt < dist.get(v))
+                // retrieves the current neighbor and computes the new distance
+                Node neighbor = neighbor_entry.getKey();
+                Double edgeLength = neighbor_entry.getValue();
+                Double candidateDistance = distanceFromStart.get(current) + edgeLength;
+                // if this new distance is smaller, then change the current path
+                if (candidateDistance < distanceFromStart.get(neighbor))
                 {
-                    dist.put(v, alt);
-                    cameFrom.put(v, u);
+                    distanceFromStart.put(neighbor, candidateDistance);
+                    cameFrom.put(neighbor, current);
                 }
             }
         }
 
-        return reconstructPath(cameFrom, goal);
-    }
-
-    private static List<Node> reconstructPath(Map<Node, Node> cameFrom, Node current)
-    {
-        List<Node> totalPath = new ArrayList<>();
-        totalPath.add(current);
-
-        while (cameFrom.keySet().contains(current))
-        {
-            current = cameFrom.get(current);
-            totalPath.add(current);
-        }
-
-        Collections.reverse(totalPath);
-
-        return totalPath;
+        return Graph.reconstructPath(cameFrom, goal);
     }
 }
