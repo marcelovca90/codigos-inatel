@@ -22,6 +22,11 @@ public class Graph
         this.adjacencyList.get(source).add(new SimpleEntry<>(destination, distance));
     }
 
+    public Set<Node> getNodes()
+    {
+        return this.adjacencyList.keySet();
+    }
+
     public Set<Entry<Node, Double>> getNeighbors(Node node)
     {
         return this.adjacencyList.get(node);

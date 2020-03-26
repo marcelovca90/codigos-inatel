@@ -53,7 +53,7 @@ public class AStar
         while (!openSet.isEmpty())
         {
             // This operation can occur in O(1) time if openSet is a min-heap or a priority queue
-            Node current = openSet.peek();
+            Node current = openSet.element();
             if (current.equals(goal))
             {
                 return reconstructPath(cameFrom, current);
@@ -96,6 +96,8 @@ public class AStar
             current = cameFrom.get(current);
             totalPath.add(current);
         }
+
+        Collections.reverse(totalPath);
 
         return totalPath;
     }

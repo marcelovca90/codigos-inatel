@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import br.inatel.c210.algorithm.AStar;
+import br.inatel.c210.algorithm.Dijkstra;
 import br.inatel.c210.heuristic.Heuristic;
 import br.inatel.c210.heuristic.impl.Chebyshev;
 import br.inatel.c210.heuristic.impl.Euclidean;
@@ -96,15 +97,23 @@ public class Runner
         Heuristic manhattan = new Manhattan();
         Heuristic euclidean = new Euclidean();
 
-        // tests (1)
+        // tests (AStar)
+        System.err.println("Testes do A* de Limeira a Sao Paulo com diferentes heuristicas");
         displayResult(AStar.run(graph, limeira, saoPaulo, chebyshev));
         displayResult(AStar.run(graph, limeira, saoPaulo, euclidean));
         displayResult(AStar.run(graph, limeira, saoPaulo, manhattan));
-
-        // tests (2)
+        System.err.println("Testes do A* entre diversas cidades com diferentes heuristicas");
         displayResult(AStar.run(graph, piracicaba, campinas, chebyshev));
         displayResult(AStar.run(graph, indaiatuba, capivari, euclidean));
         displayResult(AStar.run(graph, americana, tiete, manhattan));
+
+        // tests (Dijkstra)
+        System.err.println("Teste do Dijkstra de Limeira a Sao Paulo");
+        displayResult(Dijkstra.run(graph, limeira, saoPaulo));
+        System.err.println("Teste do Dijkstra entre diversas cidades");
+        displayResult(Dijkstra.run(graph, piracicaba, campinas));
+        displayResult(Dijkstra.run(graph, indaiatuba, capivari));
+        displayResult(Dijkstra.run(graph, americana, tiete));
     }
 
     private static void displayResult(List<Node> path)
