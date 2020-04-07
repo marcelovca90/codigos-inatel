@@ -13,6 +13,7 @@ public class Runner
 {
     public static void main(String[] args)
     {
+        // create population
         List<Chromossome> population = new ArrayList<>();
         population.add(new Chromossome(4, 3));
         population.add(new Chromossome(2, 9));
@@ -21,10 +22,12 @@ public class Runner
         population.add(new Chromossome(5, 5));
         population.add(new Chromossome(14, 3));
 
+        // initialize control and auxiliary variables
         int generation = 0;
         double populationScore = Problem.f_average(population);
         PlotUtils.add(generation, populationScore);
 
+        // genetic algorithm main loop
         do
         {
             // choose parents for crossover
@@ -49,7 +52,7 @@ public class Runner
             PlotUtils.add(generation, populationScore);
 
             // print the average score for the current generation
-            System.err.println("#" + generation + " Population average score = " + populationScore);
+            System.err.println(String.format("Generation # %d -> Average population score = %.3f", generation, populationScore));
 
         } while (generation < 50);
 

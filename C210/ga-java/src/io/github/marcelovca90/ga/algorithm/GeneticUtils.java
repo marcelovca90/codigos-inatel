@@ -1,12 +1,14 @@
 package io.github.marcelovca90.ga.algorithm;
 
 import java.util.List;
+import java.util.Random;
 
 import io.github.marcelovca90.ga.entity.Chromossome;
 import io.github.marcelovca90.ga.entity.Problem;
 
 public class GeneticUtils
 {
+    public static final Random RANDOM = new Random(42L);
 
     public static Chromossome findBestChromossome(List<Chromossome> population)
     {

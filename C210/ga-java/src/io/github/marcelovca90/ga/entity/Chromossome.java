@@ -1,5 +1,7 @@
 package io.github.marcelovca90.ga.entity;
 
+import static io.github.marcelovca90.ga.algorithm.GeneticUtils.RANDOM;
+
 import java.util.Arrays;
 import java.util.BitSet;
 
@@ -7,42 +9,29 @@ public class Chromossome
 {
     private BitSet genes;
 
+    public Chromossome()
+    {
+        int x = RANDOM.nextInt(16);
+        int y = RANDOM.nextInt(16);
+        this.genes = getGenotype(x, y);
+    }
+
     public Chromossome(int x, int y)
     {
-        this.genes = encode(x, y);
+        this.genes = getGenotype(x, y);
     }
 
     public BitSet getGenes()
     {
-        return genes;
+        return this.genes;
     }
 
-    public static Chromossome[] fromParents(int point, Chromossome parent1, Chromossome parent2)
+    public void setGenes(BitSet genes)
     {
-        BitSet child1 = new BitSet(8);
-        BitSet child2 = new BitSet(8);
-
-        for (int i = 0; i < point; i++)
-        {
-            child1.set(i, parent1.getGeneAt(i));
-            child2.set(i, parent2.getGeneAt(i));
-        }
-
-        for (int i = point; i < 8; i++)
-        {
-            child1.set(i, parent2.getGeneAt(i));
-            child2.set(i, parent1.getGeneAt(i));
-        }
-
-        Integer[] child1_xy = decode(child1);
-        Integer[] child2_xy = decode(child2);
-
-        return new Chromossome[] {
-                new Chromossome(child1_xy[0], child1_xy[1]),
-                new Chromossome(child2_xy[0], child2_xy[1]) };
+        this.genes = genes;
     }
 
-    public static BitSet encode(int x, int y)
+    public static BitSet getGenotype(int x, int y)
     {
         BitSet bits = new BitSet(8);
         String xyBinary = toBinaryString(x) + toBinaryString(y);
@@ -51,34 +40,23 @@ public class Chromossome
         return bits;
     }
 
-    public static Integer[] decode(BitSet bits)
+    public static Integer[] getFenotype(BitSet genes)
     {
-        // XXXX YYYY
-        // 0123 4567
-        // 8421 8421
+        // XXXX YYYY (4 bits to each variablle)
+        // 0123 4567 (bits are indexed from left to right)
+        // 8421 8421 (adopting a little-endian representation)
 
-        Integer x = 8 * (bits.get(0) ? 1 : 0) +
-                4 * (bits.get(1) ? 1 : 0) +
-                2 * (bits.get(2) ? 1 : 0) +
-                1 * (bits.get(3) ? 1 : 0);
+        Integer x = 8 * (genes.get(0) ? 1 : 0) +
+                4 * (genes.get(1) ? 1 : 0) +
+                2 * (genes.get(2) ? 1 : 0) +
+                1 * (genes.get(3) ? 1 : 0);
 
-        Integer y = 8 * (bits.get(4) ? 1 : 0) +
-                4 * (bits.get(5) ? 1 : 0) +
-                2 * (bits.get(6) ? 1 : 0) +
-                1 * (bits.get(7) ? 1 : 0);
+        Integer y = 8 * (genes.get(4) ? 1 : 0) +
+                4 * (genes.get(5) ? 1 : 0) +
+                2 * (genes.get(6) ? 1 : 0) +
+                1 * (genes.get(7) ? 1 : 0);
 
         return new Integer[] { x, y };
-    }
-
-    public Chromossome flipGeneAt(int i)
-    {
-        this.genes.flip(i);
-        return this;
-    }
-
-    public boolean getGeneAt(int i)
-    {
-        return this.genes.get(i);
     }
 
     @Override
@@ -94,7 +72,7 @@ public class Chromossome
             sb.append(genes.get(i) ? '1' : '0');
         }
 
-        sb.append("], G = " + Arrays.toString(decode(this.genes)));
+        sb.append("], G = " + Arrays.toString(getFenotype(this.genes)));
 
         return sb.toString();
     }

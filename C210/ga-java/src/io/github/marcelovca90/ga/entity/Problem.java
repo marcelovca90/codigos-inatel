@@ -12,7 +12,7 @@ public class Problem
 
     public static double f(Chromossome c)
     {
-        Integer[] data = Chromossome.decode(c.getGenes());
+        Integer[] data = Chromossome.getFenotype(c.getGenes());
         return f(data[0], data[1]);
     }
 
@@ -23,7 +23,7 @@ public class Problem
 
     public static double g(Chromossome c)
     {
-        Integer[] data = Chromossome.decode(c.getGenes());
+        Integer[] data = Chromossome.getFenotype(c.getGenes());
         return g(data[0], data[1]);
     }
 
