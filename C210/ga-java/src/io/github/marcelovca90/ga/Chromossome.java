@@ -86,6 +86,7 @@ public class Chromossome
     {
         StringBuilder sb = new StringBuilder();
 
+        sb.append("F = [");
         for (int i = 0; i < 8; i++)
         {
             if (i == 4)
@@ -93,7 +94,7 @@ public class Chromossome
             sb.append(genes.get(i) ? '1' : '0');
         }
 
-        sb.append(' ' + Arrays.toString(decode(this.genes)));
+        sb.append("], G = " + Arrays.toString(decode(this.genes)));
 
         return sb.toString();
     }

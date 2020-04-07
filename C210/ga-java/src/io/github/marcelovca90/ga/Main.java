@@ -1,12 +1,13 @@
 package io.github.marcelovca90.ga;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.Random;
 
 public class Main
 {
+    private static final double MUTATION_PROBABILITY = 0.05;
+
     public static Problem problem = new Problem();
 
     public static Random random = new Random(42L);
@@ -21,82 +22,123 @@ public class Main
         population.add(new Chromossome(5, 5));
         population.add(new Chromossome(14, 3));
 
-        int generations = 0;
+        int generation = 0;
+        double populationScore = problem.average_f(population);
+        PlotUtils.add(generation, populationScore);
 
         do
         {
-            // print all scores
-            // population.stream().forEach(Main::debugChromossome);
-            // System.out.println("Population average score = " + problem.average_f(population));
-
             // choose parents for crossover
-            int parent1Index = -1, parent2Index = -1;
-            do
-            {
-                parent1Index = random.nextInt(population.size());
-                parent2Index = random.nextInt(population.size());
-            } while (parent1Index == parent2Index);
-            Chromossome parent1 = population.get(parent1Index);
-            Chromossome parent2 = population.get(parent2Index);
+            Chromossome[] parents = selection(population);
 
-            // calculate population score
-            // System.out.println("Crossover between " + parent1Index + " and " + parent2Index);
+            // perform crossover and add children to population
+            crossover(population, parents[0], parents[1]);
 
-            // choose point for crossover
-            int crossoverPoint = 0;
-            do
-            {
-                crossoverPoint = random.nextInt(8);
-            } while (crossoverPoint == 0 || crossoverPoint == 7);
-            // System.out.println("Crossover point = " + crossoverPoint);
+            // perform random flip mutation, if lucky
+            mutation(population);
 
-            Chromossome[] children = Chromossome.fromParents(crossoverPoint, parent1, parent2);
-            Chromossome child1 = children[0];
-            Chromossome child2 = children[1];
-            // debugChromossome(child1);
-            // debugChromossome(child2);
+            // remove the two worst individuals from the population
+            elitism(population);
 
-            // add children to population
-            population.add(child1);
-            population.add(child2);
-
-            // choose if there will be a mutation
-            double prob = random.nextDouble();
-            if (prob < 0.05)
-            {
-                // choose individual for mutation
-                int mutationIndividualIndex = random.nextInt(population.size());
-                Chromossome c = population.get(mutationIndividualIndex);
-                // choose mutation point
-                int mutationPoint = random.nextInt(8);
-                System.out.println("Individual " + c + " will mutate at " + mutationPoint);
-                debugChromossome(c);
-                c = c.flipGeneAt(mutationPoint);
-                population.set(mutationIndividualIndex, c);
-                debugChromossome(c);
-            }
-
-            // remove worst individuals from population
-            population.remove(findWorstChromossomeIndex(population));
-            population.remove(findWorstChromossomeIndex(population));
+            // increment generation counter
+            generation++;
 
             // calculate new population average score
-            System.out.println(generations + " population average score = " + problem.average_f(population));
+            populationScore = problem.average_f(population);
 
-        } while (++generations < 100);
+            // record the average score for the current generation
+            PlotUtils.add(generation, populationScore);
 
-        System.out.println(
-            "Best individual: " +
-                    Arrays.toString(Chromossome.decode(population.get(findBestChromossomeIndex(population)).getGenes())));
+            // print the average score for the current generation
+            System.err.println("#" + generation + " Population average score = " + populationScore);
+
+        } while (generation < 50);
+
+        // find the best individual after running the genetic algorithm
+        int bestChromossomeIndex = findBestChromossomeIndex(population);
+        Chromossome bestChromossome = population.get(bestChromossomeIndex);
+        System.out.println("Best individual: " + formatChromossome(bestChromossome));
+
+        // plot 'generations vs average fitness' chart
+        PlotUtils.plot();
     }
 
-    private static int findBestChromossomeIndex(List<Chromossome> pop)
+    private static Chromossome[] selection(List<Chromossome> population)
+    {
+        // choose parents for crossover; they must not be the same individual
+        int parent1Index = -1, parent2Index = -1;
+        do
+        {
+            parent1Index = random.nextInt(population.size());
+            parent2Index = random.nextInt(population.size());
+        } while (parent1Index == parent2Index);
+        Chromossome parent1 = population.get(parent1Index);
+        System.out.println("1st parent chosen for crossover: " + formatChromossome(parent1));
+        Chromossome parent2 = population.get(parent2Index);
+        System.out.println("2nd parent chosen for crossover: " + formatChromossome(parent2));
+        return new Chromossome[] { parent1, parent2 };
+    }
+
+    private static void crossover(List<Chromossome> population, Chromossome parent1, Chromossome parent2)
+    {
+        // choose point for crossover; it must be within genes indices
+        int crossoverPoint = 0;
+        do
+        {
+            crossoverPoint = random.nextInt(8);
+        } while (crossoverPoint == 0 || crossoverPoint == 7);
+        System.out.println("Crossover will happen at point " + crossoverPoint);
+
+        Chromossome[] children = Chromossome.fromParents(crossoverPoint, parent1, parent2);
+        Chromossome child1 = children[0];
+        System.out.println("1st child generated from crossover: " + formatChromossome(child1));
+        Chromossome child2 = children[1];
+        System.out.println("2nd child generated from crossover: " + formatChromossome(child2));
+
+        // add children to population
+        population.add(child1);
+        population.add(child2);
+    }
+
+    private static void mutation(List<Chromossome> population)
+    {
+        // determine if there will be a mutation
+        double prob = random.nextDouble();
+        if (prob < MUTATION_PROBABILITY)
+        {
+            // choose individual for mutation
+            int mutationIndividualIndex = random.nextInt(population.size());
+            Chromossome beforeMutation = population.get(mutationIndividualIndex);
+
+            // choose mutation point
+            int mutationPoint = random.nextInt(8);
+            System.out.println("Individual " + beforeMutation + " will mutate at point " + mutationPoint);
+
+            // perform flip mutation
+            Chromossome afterMutation = beforeMutation.flipGeneAt(mutationPoint);
+            population.set(mutationIndividualIndex, afterMutation);
+        }
+    }
+
+    private static void elitism(List<Chromossome> population)
+    {
+        // remove the worst two individuals from population
+        for (int i = 0; i < 2; i++)
+        {
+            int worstIndividualIndex = findWorstChromossomeIndex(population);
+            Chromossome worstIndividual = population.get(worstIndividualIndex);
+            System.out.println("Removing worst individual from population: " + formatChromossome(worstIndividual));
+            population.remove(worstIndividualIndex);
+        }
+    }
+
+    private static int findBestChromossomeIndex(List<Chromossome> population)
     {
         double maxScore = Double.MIN_VALUE;
         int maxIndex = -1;
-        for (int i = 0; i < pop.size(); i++)
+        for (int i = 0; i < population.size(); i++)
         {
-            double score = problem.g(pop.get(i));
+            double score = problem.g(population.get(i));
             if (score > maxScore)
             {
                 maxScore = score;
@@ -106,13 +148,13 @@ public class Main
         return maxIndex;
     }
 
-    private static int findWorstChromossomeIndex(List<Chromossome> pop)
+    private static int findWorstChromossomeIndex(List<Chromossome> population)
     {
         double minScore = Double.MAX_VALUE;
         int minIndex = -1;
-        for (int i = 0; i < pop.size(); i++)
+        for (int i = 0; i < population.size(); i++)
         {
-            double score = problem.g(pop.get(i));
+            double score = problem.g(population.get(i));
             if (score < minScore)
             {
                 minScore = score;
@@ -122,11 +164,8 @@ public class Main
         return minIndex;
     }
 
-    private static void debugChromossome(Chromossome c)
+    private static String formatChromossome(Chromossome c)
     {
-        System.out.println(
-            String.format(
-                "Genotype = %s\tFenotype = %s\tFitness = %s",
-                c.toString(), Arrays.toString(Chromossome.decode(c.getGenes())), problem.g(c)));
+        return String.format("%s , Score = %.3f", c, problem.g(c));
     }
 }
