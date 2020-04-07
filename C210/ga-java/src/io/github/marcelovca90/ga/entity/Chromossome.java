@@ -1,4 +1,4 @@
-package io.github.marcelovca90.ga;
+package io.github.marcelovca90.ga.entity;
 
 import java.util.Arrays;
 import java.util.BitSet;

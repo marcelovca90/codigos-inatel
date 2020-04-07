@@ -1,4 +1,4 @@
-package io.github.marcelovca90.ga;
+package io.github.marcelovca90.ga.plot;
 
 import java.util.ArrayList;
 import java.util.List;
