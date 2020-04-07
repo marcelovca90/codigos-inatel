@@ -1,13 +1,13 @@
-package io.github.marcelovca90.ga.runnable;
+package br.inatel.c210.ga.runnable;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import io.github.marcelovca90.ga.algorithm.GeneticOperators;
-import io.github.marcelovca90.ga.algorithm.GeneticUtils;
-import io.github.marcelovca90.ga.entity.Chromossome;
-import io.github.marcelovca90.ga.entity.Problem;
-import io.github.marcelovca90.ga.plot.PlotUtils;
+import br.inatel.c210.ga.algorithm.GeneticOperators;
+import br.inatel.c210.ga.algorithm.GeneticUtils;
+import br.inatel.c210.ga.entity.Chromossome;
+import br.inatel.c210.ga.entity.Problem;
+import br.inatel.c210.ga.plot.PlotUtils;
 
 public class Runner
 {

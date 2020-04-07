@@ -1,10 +1,10 @@
-package io.github.marcelovca90.ga.algorithm;
+package br.inatel.c210.ga.algorithm;
 
 import java.util.List;
 import java.util.Random;
 
-import io.github.marcelovca90.ga.entity.Chromossome;
-import io.github.marcelovca90.ga.entity.Problem;
+import br.inatel.c210.ga.entity.Chromossome;
+import br.inatel.c210.ga.entity.Problem;
 
 public class GeneticUtils
 {

@@ -1,11 +1,11 @@
-package io.github.marcelovca90.ga.algorithm;
+package br.inatel.c210.ga.algorithm;
 
-import static io.github.marcelovca90.ga.algorithm.GeneticUtils.RANDOM;
+import static br.inatel.c210.ga.algorithm.GeneticUtils.RANDOM;
 
 import java.util.BitSet;
 import java.util.List;
 
-import io.github.marcelovca90.ga.entity.Chromossome;
+import br.inatel.c210.ga.entity.Chromossome;
 
 public class GeneticOperators
 {

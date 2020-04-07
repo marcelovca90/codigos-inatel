@@ -1,6 +1,6 @@
-package io.github.marcelovca90.ga.entity;
+package br.inatel.c210.ga.entity;
 
-import static io.github.marcelovca90.ga.algorithm.GeneticUtils.RANDOM;
+import static br.inatel.c210.ga.algorithm.GeneticUtils.RANDOM;
 
 import java.util.Arrays;
 import java.util.BitSet;
@@ -31,6 +31,24 @@ public class Chromossome
         this.genes = genes;
     }
 
+    @Override
+    public String toString()
+    {
+        StringBuilder sb = new StringBuilder();
+
+        sb.append("F = [");
+        for (int i = 0; i < 8; i++)
+        {
+            if (i == 4)
+                sb.append(' ');
+            sb.append(genes.get(i) ? '1' : '0');
+        }
+
+        sb.append("], G = " + Arrays.toString(getFenotype(this.genes)));
+
+        return sb.toString();
+    }
+
     public static BitSet getGenotype(int x, int y)
     {
         BitSet bits = new BitSet(8);
@@ -57,24 +75,6 @@ public class Chromossome
                 1 * (genes.get(7) ? 1 : 0);
 
         return new Integer[] { x, y };
-    }
-
-    @Override
-    public String toString()
-    {
-        StringBuilder sb = new StringBuilder();
-
-        sb.append("F = [");
-        for (int i = 0; i < 8; i++)
-        {
-            if (i == 4)
-                sb.append(' ');
-            sb.append(genes.get(i) ? '1' : '0');
-        }
-
-        sb.append("], G = " + Arrays.toString(getFenotype(this.genes)));
-
-        return sb.toString();
     }
 
     private static String toBinaryString(int x)

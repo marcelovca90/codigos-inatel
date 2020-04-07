@@ -1,4 +1,4 @@
-package io.github.marcelovca90.ga.entity;
+package br.inatel.c210.ga.entity;
 
 import java.util.List;
 import java.util.stream.Collectors;
