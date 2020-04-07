@@ -1,16 +1,16 @@
-package br.inatel.c210.runnable;
+package br.inatel.c210.search.runnable;
 
 import java.util.List;
 import java.util.stream.Collectors;
 
-import br.inatel.c210.algorithm.AStar;
-import br.inatel.c210.algorithm.Dijkstra;
-import br.inatel.c210.heuristic.Heuristic;
-import br.inatel.c210.heuristic.impl.Chebyshev;
-import br.inatel.c210.heuristic.impl.Euclidean;
-import br.inatel.c210.heuristic.impl.Manhattan;
-import br.inatel.c210.model.Graph;
-import br.inatel.c210.model.Node;
+import br.inatel.c210.search.algorithm.AStar;
+import br.inatel.c210.search.algorithm.Dijkstra;
+import br.inatel.c210.search.heuristic.Heuristic;
+import br.inatel.c210.search.heuristic.impl.Chebyshev;
+import br.inatel.c210.search.heuristic.impl.Euclidean;
+import br.inatel.c210.search.heuristic.impl.Manhattan;
+import br.inatel.c210.search.model.Graph;
+import br.inatel.c210.search.model.Node;
 
 public class Runner
 {

@@ -1,4 +1,4 @@
-package br.inatel.c210.algorithm;
+package br.inatel.c210.search.algorithm;
 
 import static java.lang.Double.POSITIVE_INFINITY;
 
@@ -7,10 +7,11 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
-import java.util.PriorityQueue;
 
-import br.inatel.c210.model.Graph;
-import br.inatel.c210.model.Node;
+import br.inatel.c210.search.model.Graph;
+import br.inatel.c210.search.model.Node;
+
+import java.util.PriorityQueue;
 
 public class Dijkstra
 {

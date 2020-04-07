@@ -1,4 +1,4 @@
-package br.inatel.c210.algorithm;
+package br.inatel.c210.search.algorithm;
 
 import static java.lang.Double.POSITIVE_INFINITY;
 
@@ -11,9 +11,9 @@ import java.util.Map.Entry;
 import java.util.PriorityQueue;
 import java.util.Queue;
 
-import br.inatel.c210.heuristic.Heuristic;
-import br.inatel.c210.model.Graph;
-import br.inatel.c210.model.Node;
+import br.inatel.c210.search.heuristic.Heuristic;
+import br.inatel.c210.search.model.Graph;
+import br.inatel.c210.search.model.Node;
 
 public class AStar
 {

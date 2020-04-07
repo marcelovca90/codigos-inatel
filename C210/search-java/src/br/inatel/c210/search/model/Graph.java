@@ -1,4 +1,4 @@
-package br.inatel.c210.model;
+package br.inatel.c210.search.model;
 
 import java.util.AbstractMap.SimpleEntry;
 import java.util.ArrayList;
