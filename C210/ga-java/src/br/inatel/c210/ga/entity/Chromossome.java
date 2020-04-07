@@ -36,7 +36,7 @@ public class Chromossome
     {
         StringBuilder sb = new StringBuilder();
 
-        sb.append("F = [");
+        sb.append("G = [");
         for (int i = 0; i < 8; i++)
         {
             if (i == 4)
@@ -44,7 +44,7 @@ public class Chromossome
             sb.append(genes.get(i) ? '1' : '0');
         }
 
-        sb.append("], G = " + Arrays.toString(getFenotype(this.genes)));
+        sb.append("], F = " + Arrays.toString(getFenotype(this.genes)));
 
         return sb.toString();
     }
@@ -60,7 +60,7 @@ public class Chromossome
 
     public static Integer[] getFenotype(BitSet genes)
     {
-        // XXXX YYYY (4 bits to each variablle)
+        // XXXX YYYY (4 bits to each variable)
         // 0123 4567 (bits are indexed from left to right)
         // 8421 8421 (adopting a little-endian representation)
 

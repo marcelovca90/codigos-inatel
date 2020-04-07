@@ -25,6 +25,7 @@ public class Runner
         // initialize control and auxiliary variables
         int generation = 0;
         double populationScore = Problem.f_average(population);
+        System.err.println(String.format("Generation # %d -> Average population score = %.3f", generation, populationScore));
         PlotUtils.add(generation, populationScore);
 
         // genetic algorithm main loop

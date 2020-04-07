@@ -90,6 +90,7 @@ public class GeneticOperators
             BitSet genes = target.getGenes();
             genes.flip(mutationPoint);
             target.setGenes(genes);
+            System.out.println("Individual " + target + " mutated at point " + mutationPoint);
 
             // update the population with the mutated individual
             population.set(mutationIndividualIndex, target);

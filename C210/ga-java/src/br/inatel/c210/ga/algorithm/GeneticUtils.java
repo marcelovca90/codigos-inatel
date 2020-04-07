@@ -54,6 +54,6 @@ public class GeneticUtils
 
     public static String formatChromossome(Chromossome c)
     {
-        return String.format("%s , Score = %.3f", c, Problem.g(c));
+        return String.format("%s, Score = %.3f", c, Problem.g(c));
     }
 }
