@@ -14,5 +14,5 @@ class ActivationFunctions:
 def heaviside(v):
     return 1 if v >= 0 else 0
 
-def heaviside_symmetric(u):
-    return np.sign(u)
+def heaviside_symmetric(v):
+    return np.sign(v)
