@@ -7,7 +7,7 @@ from modules.problem import Problem
 
 if __name__ == "__main__":
     population = []
-    population.append(Chromossome())
+    population.append(Chromossome(4, 3))
     population.append(Chromossome(2, 9))
     population.append(Chromossome(9, 11))
     population.append(Chromossome(0, 15))
