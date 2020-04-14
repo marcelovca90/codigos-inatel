@@ -7,7 +7,7 @@ from modules.problem import Problem
 
 if __name__ == "__main__":
     population = []
-    for _ in range(6):
+    for _ in range(10):
         population.append(Chromossome())
 
     generation = 0

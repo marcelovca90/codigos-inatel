@@ -2,7 +2,7 @@ import random
 
 from .bitset import BitSet
 
-class Chromossome():
+class Chromossome:
     def __init__(self, x = None, y = None):
         if x == None:
             x = random.randint(-10, 10)
