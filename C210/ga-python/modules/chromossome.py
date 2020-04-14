@@ -5,10 +5,10 @@ from .bitset import BitSet
 class Chromossome():
     def __init__(self, x = None, y = None):
         if x == None:
-            x = random.randint(0, 15)
+            x = random.randint(-10, 10)
 
         if y == None:
-            y = random.randint(0, 15)
+            y = random.randint(-10, 10)
 
         self.__genes = Chromossome.get_genotype(x, y)
 

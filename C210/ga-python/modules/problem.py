@@ -6,7 +6,7 @@ class Problem:
 
     @staticmethod
     def f(x, y):
-        return abs(x * y * math.sin(math.pi * y / 4.0))
+        return x**2 + y**2
 
     @staticmethod
     def f_chromossome(chromossome):
@@ -15,7 +15,7 @@ class Problem:
 
     @staticmethod
     def g(x, y):
-        return Problem.f(x, y) + 1
+        return 1 / Problem.f(x, y)
 
     @staticmethod
     def g_chromossome(chromossome):

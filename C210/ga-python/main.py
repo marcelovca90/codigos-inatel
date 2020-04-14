@@ -7,12 +7,8 @@ from modules.problem import Problem
 
 if __name__ == "__main__":
     population = []
-    population.append(Chromossome(4, 3))
-    population.append(Chromossome(2, 9))
-    population.append(Chromossome(9, 11))
-    population.append(Chromossome(0, 15))
-    population.append(Chromossome(5, 5))
-    population.append(Chromossome(14, 3))
+    for _ in range(6):
+        population.append(Chromossome())
 
     generation = 0
     population_score = Problem.f_average(population)
@@ -23,7 +19,7 @@ if __name__ == "__main__":
     population_score_plot = []
     population_score_plot.append(population_score)
 
-    while generation < 50:
+    while generation < 100:
         parent1, parent2 = GeneticOperators.selection(population)
 
         GeneticOperators.crossover(population, parent1, parent2)
